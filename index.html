@@ -36,6 +36,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .plan-act.gym{background:var(--al);color:var(--ad)}
 .plan-act.run{background:#FDE8D8;color:#9A4F12}
 .plan-act.swim{background:#D8EEF7;color:#1A5A8F}
+.plan-act.cf{background:#EEEDFE;color:#3C3489}
 .plan-act.walk{background:var(--gl);color:var(--gd)}
 .plan-act.rest{background:var(--s2);color:var(--t2)}
 /* STATUS */
@@ -149,6 +150,9 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .sc2 span{font-size:9px;font-weight:400}
 .sc2.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .cwarn{background:var(--ml);border:1px solid rgba(184,105,26,.3);border-radius:var(--rs);padding:9px 12px;font-size:12px;color:var(--am);margin-bottom:8px;display:flex;gap:6px}
+.techbtn{margin-top:10px;padding-top:10px;border-top:1px solid var(--b1);font-size:12px;font-weight:500;color:var(--ac);cursor:pointer}
+.techbox{margin-top:8px;background:var(--s3);border-radius:var(--rs);padding:10px 12px}
+.techlink{font-size:12px;font-weight:500;color:var(--ac);text-decoration:none}
 .ccard{background:var(--gl);border:1.5px solid rgba(42,122,92,.25);border-radius:var(--r);padding:14px;margin-bottom:10px}
 .ctit{font-size:14px;font-weight:600;color:var(--gr)}
 .cdsc{font-size:12px;color:var(--gr);opacity:.8;margin-top:3px}
@@ -223,10 +227,10 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
     <div class="shdr">Mi semana</div>
     <div class="card" id="h-plan">
       <div class="plan-row"><span class="plan-day">Lun</span><span class="plan-act rest">Descanso</span></div>
-      <div class="plan-row"><span class="plan-day">Mar</span><span class="plan-act gym">Gym · Tren superior A</span></div>
+      <div class="plan-row"><span class="plan-day">Mar</span><span class="plan-act cf">CrossFit</span></div>
       <div class="plan-row"><span class="plan-day">Mié</span><span class="plan-act run">Running con el team</span></div>
       <div class="plan-row"><span class="plan-day">Jue</span><span class="plan-act gym">Gym · Piernas A</span></div>
-      <div class="plan-row"><span class="plan-day">Vie</span><span class="plan-act gym">Gym · Tren superior B</span><span class="plan-act swim">+ Natación (tarde)</span></div>
+      <div class="plan-row"><span class="plan-day">Vie</span><span class="plan-act gym">Gym · Tren superior A</span><span class="plan-act swim">+ Natación opc.</span></div>
       <div class="plan-row"><span class="plan-day">Sáb</span><span class="plan-act gym">Gym · Piernas B</span></div>
       <div class="plan-row"><span class="plan-day">Dom</span><span class="plan-act walk">Caminata o rollers</span></div>
     </div>
@@ -561,13 +565,13 @@ ex:[{n:'Hip thrust',m:'Barra o mancuerna',s:3,r:15,sg:'10–15 kg'},
 {n:'Aducción en máquina',m:'',s:3,r:15,sg:'20–25 kg'},
 {n:'Gemelos de pie',m:'Escalón o máquina',s:3,r:20,sg:'Peso corporal'}],
 cardio:{t:'Cinta — ritmo moderado',d:'5 min entrada · 10 min sostenido · 5 min bajada'}},
-{id:2,lab:'Día 2',foc:'Tren superior A',desc:'Pecho y espalda · 3×12',ck:true,
+{id:2,lab:'Día 2',foc:'Tren superior A',desc:'Pecho y espalda · 3×12',ck:false,
 ex:[{n:'Press pecho en máquina',m:'Asiento a altura de hombros',s:3,r:12,sg:'15–20 kg'},
-{n:'Remo en máquina',m:'Codos cerca del cuerpo',s:3,r:12,sg:'15–20 kg'},
-{n:'Vuelos laterales',m:'Hombros abajo · sin tensión cervical',s:3,r:15,sg:'2–3 kg c/u',nc:true},
+{n:'Jalón al pecho',m:'Polea alta · agarre ancho',s:3,r:12,sg:'20–30 kg'},
+{n:'Press de hombros',m:'Mancuernas o máquina',s:3,r:12,sg:'4–6 kg c/u'},
+{n:'Vuelos laterales',m:'Mancuernas',s:3,r:15,sg:'3–4 kg c/u'},
 {n:'Curl de bíceps',m:'Mancuernas codos fijos',s:3,r:15,sg:'4–5 kg c/u'},
-{n:'Francés tríceps',m:'Mancuerna con ambas manos',s:3,r:15,sg:'4–6 kg'},
-{n:'Apertura pecho',m:'Polea o mancuernas',s:3,r:15,sg:'3–4 kg c/u'}],
+{n:'Francés tríceps',m:'Mancuerna con ambas manos',s:3,r:15,sg:'4–6 kg'}],
 cardio:{t:'Bicicleta — intervalos suaves',d:'Resist. 5–6 · 1 min fuerte / 1 suave × 10'}},
 {id:3,lab:'Día 3',foc:'Piernas B',desc:'Cuádriceps y glúteos · 3×15',ck:false,
 ex:[{n:'Puente de glúteos',m:'Disco o mancuerna',s:3,r:20,sg:'5–10 kg'},
@@ -577,15 +581,47 @@ ex:[{n:'Puente de glúteos',m:'Disco o mancuerna',s:3,r:20,sg:'5–10 kg'},
 {n:'Sumo con mancuerna',m:'Stance ancho puntas afuera',s:3,r:15,sg:'10–12 kg'},
 {n:'Abducción en máquina',m:'',s:3,r:20,sg:'20–25 kg'}],
 cardio:{t:'Caminata inclinada',d:'Vel. 5 km/h · inclinación 10–12% · 20 min'}},
-{id:4,lab:'Día 4',foc:'Tren superior B',desc:'Hombros y brazos · 3×12',ck:true,
-ex:[{n:'Remo 1 brazo',m:'Apoyo en banco · c/lado',s:3,r:12,sg:'8–10 kg'},
-{n:'Curl bíceps en polea',m:'Soga o barra · codos fijos',s:3,r:15,sg:'10–12 kg'},
-{n:'Tríceps en polea',m:'Soga · codos pegados',s:3,r:15,sg:'10–15 kg'},
-{n:'Vuelos laterales',m:'Hombros relajados · sin tensión cervical',s:3,r:15,sg:'2–3 kg c/u',nc:true},
-{n:'Copa serratus',m:'Mancuerna con ambas manos',s:3,r:15,sg:'6–8 kg'},
-{n:'Press pecho máquina',m:'Variante horizontal',s:3,r:12,sg:'15–20 kg'}],
-cardio:{t:'Elíptica — ritmo sostenido',d:'Resist. 5–7 · paso activo · 20 min'}}
+{id:4,lab:'Día 4',foc:'CrossFit',desc:'Circuito metabólico · 4 vueltas',ck:false,
+ex:[{n:'Push press',m:'Técnica previa · 4×6 con poco peso',s:4,r:6,sg:'4–6 kg c/u'},
+{n:'Thrusters',m:'Sentadilla + empuje overhead',s:4,r:10,sg:'3–5 kg c/u'},
+{n:'Kettlebell swings',m:'Impulso de cadera',s:4,r:12,sg:'8–12 kg'},
+{n:'Step-ups a banco',m:'6 por pierna',s:4,r:12,sg:'Peso corporal o 3 kg'},
+{n:'Flexiones',m:'En rodillas si hace falta',s:4,r:8,sg:'Peso corporal'},
+{n:'Plancha',m:'Hold de core',s:4,r:30,sg:'30 seg'}],
+cardio:{t:'Vuelta a la calma',d:'Caminata suave 2 min + estiramiento 3 min'}}
 ];
+
+const TECH={
+'Hip thrust':'Apoyá la espalda alta en un banco, barra o mancuerna sobre la cadera. Empujá con los talones subiendo la cadera hasta alinear tronco y muslos. Apretá los glúteos arriba y bajá controlando.',
+'Sentadilla goblet':'Sostené la mancuerna contra el pecho con ambas manos. Pies al ancho de hombros, bajá llevando la cola atrás como si te sentaras, pecho erguido. Bajá hasta que los muslos queden paralelos al piso.',
+'Peso muerto rumano':'Mancuernas adelante de los muslos, piernas casi rectas (rodillas apenas flexionadas). Bajá empujando la cola hacia atrás, espalda recta, hasta sentir el estiramiento en los isquios. Volvé apretando glúteos.',
+'Estocada caminando':'Mancuernas a los costados. Das un paso largo al frente y bajás la rodilla de atrás hacia el piso. Empujá con el talón de adelante para avanzar al siguiente paso. Tronco erguido.',
+'Aducción en máquina':'Sentada en la máquina, piernas abiertas con las almohadillas en la cara interna de los muslos. Cerrá las piernas juntando las rodillas, controlando el regreso.',
+'Gemelos de pie':'Parada, elevá los talones lo más alto posible apoyando en la punta de los pies. Pausa arriba apretando el gemelo, bajá despacio. Podés sumar peso con mancuerna.',
+'Press pecho en máquina':'Asiento a la altura del pecho, agarrá las manijas y empujá hacia adelante extendiendo los brazos sin trabar los codos. Volvé controlando hasta sentir el pecho.',
+'Jalón al pecho':'Sentada, agarre ancho en la barra. Tirá la barra hacia el pecho llevando los codos abajo y atrás, juntando los omóplatos. Subí controlando sin soltar de golpe.',
+'Press de hombros':'Mancuernas a la altura de los hombros, palmas al frente. Empujá hacia arriba hasta extender los brazos sobre la cabeza. Bajá controlando hasta los hombros. No arquees la espalda.',
+'Vuelos laterales':'Mancuernas a los costados, codos apenas flexionados. Subí los brazos hacia los lados hasta la altura de los hombros (como abrir alas). Bajá despacio. No uses impulso.',
+'Curl de bíceps':'Mancuernas a los costados, codos pegados al cuerpo y fijos. Flexioná subiendo el peso hacia los hombros sin mover los codos. Bajá controlando.',
+'Francés tríceps':'Sostené una mancuerna con ambas manos detrás de la cabeza, codos apuntando arriba. Extendé los brazos subiendo el peso. Bajá flexionando solo los codos.',
+'Puente de glúteos':'Acostada boca arriba, rodillas flexionadas, pies apoyados. Disco o mancuerna sobre la cadera. Subí la cadera apretando glúteos hasta alinear el tronco. Bajá controlando.',
+'Sentadilla búlgara':'Pie de atrás apoyado en un banco, mancuernas a los costados. Bajá flexionando la pierna de adelante hasta que el muslo quede paralelo al piso. Empujá con el talón delantero.',
+'Prensa de piernas':'Sentada en la máquina, pies en la plataforma al ancho de cadera. Empujá extendiendo las piernas sin trabar las rodillas, volvé bajando controlando hasta 90 grados.',
+'Sillón isquios':'Sentada o acostada según la máquina, talones contra la almohadilla. Flexioná las rodillas llevando los talones hacia la cola. Volvé despacio.',
+'Sumo con mancuerna':'Piernas bien abiertas, puntas hacia afuera. Sostené una mancuerna entre las piernas. Bajá en sentadilla manteniendo el pecho erguido, subí apretando glúteos.',
+'Abducción en máquina':'Sentada, almohadillas en la cara externa de los muslos. Abrí las piernas separando las rodillas contra la resistencia. Volvé controlando.',
+'Remo 1 brazo':'Una rodilla y mano apoyadas en el banco, espalda recta paralela al piso. Mancuerna en la otra mano colgando. Tirá el codo hacia atrás llevando la mancuerna a la cadera. Bajá controlando.',
+'Curl bíceps en polea':'De pie frente a la polea baja, agarrá la soga o barra. Codos fijos al cuerpo, flexioná subiendo hacia los hombros. Bajá despacio.',
+'Tríceps en polea':'De pie frente a la polea alta, agarrá la soga. Codos pegados al cuerpo y fijos. Extendé los brazos hacia abajo, apretá el tríceps, volvé controlando.',
+'Press pecho máquina':'Asiento a la altura del pecho, empujá las manijas hacia adelante extendiendo los brazos. Volvé controlando hasta sentir el estiramiento del pecho.',
+'Copa serratus':'Sostené una mancuerna con ambas manos a la altura del pecho. Movimiento de control de core, mantené el tronco firme.',
+'Push press':'Mancuernas a la altura de los hombros. Flexioná apenas las piernas y usá ese impulso para empujar el peso por encima de la cabeza. Bajá controlando a los hombros. El envión de piernas es lo que diferencia del press estricto.',
+'Thrusters':'Mancuernas en los hombros. Hacé una sentadilla completa y, al subir, aprovechá el impulso para empujar el peso arriba de la cabeza en un solo movimiento fluido. Bajá el peso a los hombros y repetí.',
+'Kettlebell swings':'Pesa rusa o mancuerna entre las piernas, espalda recta. El impulso viene de la cadera (no de los brazos): empujá la cadera adelante con fuerza para llevar el peso hasta la altura de los ojos. Dejá que baje y repetí el balanceo.',
+'Step-ups a banco':'Apoyá un pie completo sobre el banco. Empujá con esa pierna para subir, llevando el otro pie arriba. Bajá controlando con la misma pierna. El impulso viene de la pierna de arriba, no de abajo.',
+'Flexiones':'Manos al ancho de hombros, cuerpo en línea recta (o apoyando rodillas para versión fácil). Bajá flexionando los codos hasta casi tocar el piso con el pecho, subí extendiendo. Core firme.',
+'Plancha':'Apoyá antebrazos y puntas de pies, cuerpo en línea recta de cabeza a talones. Apretá abdomen y glúteos. No dejes caer la cadera ni la subas. Mantené la posición el tiempo indicado.'
+};
 
 const MEALS=['Desayuno','Almuerzo','Merienda','Cena','Snack'];
 const TDEE_REST=1650,TDEE_GYM=1950,DEF=300;
@@ -1033,12 +1069,15 @@ function buildWk(){
     const sH=Array.from({length:ex.s},(_,s)=>{
       return '<div class="sc2'+(setsDone[i]&&setsDone[i][s]?' on':'')+'" id="sc-'+i+'-'+s+'">'+(s+1)+'<span>'+ex.r+'r</span></div>';
     }).join('');
-    const ncTag=ex.nc?'<div style="font-size:11px;color:var(--am);margin-top:2px">⚠ Hombros relajados</div>':'';
-    card.innerHTML='<div class="exh"><div><div class="exn">'+ex.n+'</div><div class="exm">'+ex.m+'</div>'+ncTag+'</div><span class="exb">'+ex.s+'×'+ex.r+'</span></div>'+
+    const tech=TECH[ex.n]||'';
+    const techBlock=tech?'<div class="techbtn" id="tb-'+i+'"><i class="ti"></i>¿Cómo se hace? ▾</div>'+
+      '<div class="techbox" id="tx-'+i+'" style="display:none"><div style="font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:8px">'+tech+'</div>'+
+      '<a class="techlink" href="https://www.google.com/search?q='+encodeURIComponent(ex.n+' ejercicio técnica')+'&tbm=vid" target="_blank" rel="noopener">▶ Ver video de ejemplo</a></div>':'';
+    card.innerHTML='<div class="exh"><div><div class="exn">'+ex.n+'</div><div class="exm">'+ex.m+'</div></div><span class="exb">'+ex.s+'×'+ex.r+'</span></div>'+
       '<div class="wr"><span style="font-size:11px;color:var(--t3);flex-shrink:0">Peso:</span>'+
       '<input class="wi" id="wi-'+i+'" type="number" inputmode="decimal" placeholder="kg">'+
       '<span class="ws">Sug: <strong>'+ex.sg+'</strong></span></div>'+
-      '<div class="sets">'+sH+'</div>';
+      '<div class="sets">'+sH+'</div>'+techBlock;
     body.appendChild(card);
   });
   // add set click listeners
@@ -1049,6 +1088,13 @@ function buildWk(){
     });
     const wi=document.getElementById('wi-'+i);
     if(wi)wi.addEventListener('input',function(){wgts[i]=this.value;});
+    const tb=document.getElementById('tb-'+i);
+    if(tb)tb.addEventListener('click',function(){
+      const tx=document.getElementById('tx-'+i);
+      const open=tx.style.display!=='none';
+      tx.style.display=open?'none':'block';
+      this.innerHTML='¿Cómo se hace? '+(open?'▾':'▴');
+    });
   });
   const sl2=document.createElement('div');sl2.className='slbl';sl2.textContent='Cardio · 20 min';body.appendChild(sl2);
   const cc=document.createElement('div');cc.className='ccard';
@@ -1199,4 +1245,3 @@ go('home');
 </script>
 </body>
 </html>
-
