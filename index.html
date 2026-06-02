@@ -29,6 +29,15 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .card{background:var(--w);border:1px solid var(--b1);border-radius:var(--r);padding:14px;margin-bottom:10px}
 .clbl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
 .shdr{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin:14px 0 8px}
+.plan-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1);flex-wrap:wrap}
+.plan-row:last-child{border-bottom:none}
+.plan-day{font-size:12px;font-weight:600;color:var(--t3);width:32px;flex-shrink:0;text-transform:uppercase}
+.plan-act{font-size:13px;font-weight:500;padding:3px 10px;border-radius:20px}
+.plan-act.gym{background:var(--al);color:var(--ad)}
+.plan-act.run{background:#FDE8D8;color:#9A4F12}
+.plan-act.swim{background:#D8EEF7;color:#1A5A8F}
+.plan-act.walk{background:var(--gl);color:var(--gd)}
+.plan-act.rest{background:var(--s2);color:var(--t2)}
 /* STATUS */
 .stat{font-size:12px;font-weight:500;padding:8px 12px;border-radius:var(--rs);margin-top:8px}
 .stat.ok{background:var(--gl);color:var(--gd)}.stat.warn{background:var(--ml);color:var(--am)}.stat.over{background:var(--rl);color:var(--rd)}.stat.neu{background:var(--s2);color:var(--t2)}
@@ -211,11 +220,29 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
       </div>
       <div style="font-size:11px;color:var(--t3);margin-top:10px">💡 Salud → Actividad → Pasos en tu iPhone</div>
     </div>
+    <div class="shdr">Mi semana</div>
+    <div class="card" id="h-plan">
+      <div class="plan-row"><span class="plan-day">Lun</span><span class="plan-act rest">Descanso</span></div>
+      <div class="plan-row"><span class="plan-day">Mar</span><span class="plan-act gym">Gym · Tren superior A</span></div>
+      <div class="plan-row"><span class="plan-day">Mié</span><span class="plan-act run">Running con el team</span></div>
+      <div class="plan-row"><span class="plan-day">Jue</span><span class="plan-act gym">Gym · Piernas A</span></div>
+      <div class="plan-row"><span class="plan-day">Vie</span><span class="plan-act gym">Gym · Tren superior B</span><span class="plan-act swim">+ Natación (tarde)</span></div>
+      <div class="plan-row"><span class="plan-day">Sáb</span><span class="plan-act gym">Gym · Piernas B</span></div>
+      <div class="plan-row"><span class="plan-day">Dom</span><span class="plan-act walk">Caminata o rollers</span></div>
+    </div>
     <div class="shdr">Gym esta semana</div>
     <div class="dgrid" id="h-dgrid"></div>
     <button class="mbtn" id="btn-reset-week">↺ Resetear semana de gym</button>
     <div class="shdr">Resumen semanal</div>
     <div class="card" id="h-wprev"></div>
+    <div class="shdr">Respaldo de mis datos</div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--t2);margin-bottom:10px">Guardá una copia de todos tus registros (comidas, pesos, pasos, sesiones y productos) por si cambiás de celular o se borra Safari.</div>
+      <button class="abtn" id="btn-export" style="margin-top:0;margin-bottom:8px">📥 Exportar mis datos</button>
+      <button class="gbtn" id="btn-import" style="margin-bottom:0">📤 Importar respaldo</button>
+      <input type="file" id="import-file" accept=".json,application/json" style="display:none">
+      <div style="font-size:11px;color:var(--t3);margin-top:8px">El respaldo se descarga como archivo. Guardalo en tus Notas, mail o iCloud.</div>
+    </div>
   </div>
 </div>
 
@@ -1132,7 +1159,44 @@ document.getElementById('btn-add-ing').addEventListener('click', function(){ add
 document.getElementById('r-savebtn').addEventListener('click', function(){ saveRecipe(); });
 document.getElementById('f-addbtn').addEventListener('click', function(){ doAdd(); });
 
+// ═══ BACKUP: EXPORT / IMPORT ═══
+function exportData(){
+  try{
+    const data=JSON.stringify(ST,null,2);
+    const blob=new Blob([data],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    const fecha=new Date().toISOString().split('T')[0];
+    a.href=url;
+    a.download='respaldo_rutina_belen_'+fecha+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast('✓ Respaldo descargado');
+  }catch(e){ toast('Error al exportar'); }
+}
+function importData(file){
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const imported=JSON.parse(e.target.result);
+      if(!imported||typeof imported!=='object'){ toast('Archivo inválido'); return; }
+      if(!confirm('Esto va a reemplazar tus datos actuales con los del respaldo. ¿Continuar?')) return;
+      ST=imported;
+      save();
+      go('home');
+      toast('✓ Datos importados correctamente');
+    }catch(err){ toast('No se pudo leer el archivo'); }
+  };
+  reader.readAsText(file);
+}
+document.getElementById('btn-export').addEventListener('click', function(){ exportData(); });
+document.getElementById('btn-import').addEventListener('click', function(){ document.getElementById('import-file').click(); });
+document.getElementById('import-file').addEventListener('change', function(e){ if(e.target.files&&e.target.files[0]) importData(e.target.files[0]); this.value=''; });
+
 go('home');
 </script>
 </body>
 </html>
+
