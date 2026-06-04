@@ -156,6 +156,15 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .mobtit{font-size:13px;font-weight:600;color:var(--gd);margin-bottom:8px}
 .mobitem{font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid rgba(0,0,0,.05)}
 .mobitem:last-child{border-bottom:none}
+.swimcard{background:var(--w);border:1.5px solid var(--b1);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.swimcard.done{border-color:#1A5A8F;background:#D8EEF7}
+.swimhdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.swimsem{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em}
+.swimfoco{font-size:15px;font-weight:600;color:var(--t);margin-top:2px}
+.swimcard.done .swimfoco{color:#1A5A8F}
+.swimck{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--b2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1A5A8F;font-weight:700;flex-shrink:0}
+.swimcard.done .swimck{background:#1A5A8F;color:#fff;border-color:#1A5A8F}
+.swimdrill-lbl{font-size:11px;font-weight:600;color:#1A5A8F;margin:10px 0 4px;padding-top:8px;border-top:1px solid var(--b1)}
 .techbox{margin-top:8px;background:var(--s3);border-radius:var(--rs);padding:10px 12px}
 .techlink{font-size:12px;font-weight:500;color:var(--ac);text-decoration:none}
 .ccard{background:var(--gl);border:1.5px solid rgba(42,122,92,.25);border-radius:var(--r);padding:14px;margin-bottom:10px}
@@ -414,6 +423,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
   <div class="hdr"><h1>Gym</h1><div class="hdr-s">Rutina de 4 días</div></div>
   <div class="scr">
     <div class="dgrid" id="g-grid"></div>
+    <button class="gbtn" id="btn-swim">🏊 Plan de natación progresivo</button>
     <button class="gbtn" id="btn-hist">📋 Historial de sesiones</button>
   </div>
 </div>
@@ -436,6 +446,16 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
     <h1>Historial gym</h1>
   </div>
   <div class="scr" id="hist-body"></div>
+</div>
+
+<!-- ═══ NATACIÓN ═══ -->
+<div class="pg" id="pg-swim">
+  <div class="hdr">
+    <button class="bb2" id="btn-back-swim" style="margin-bottom:5px">← Volver</button>
+    <h1>Natación progresiva</h1>
+    <div class="hdr-s">Plan de 4 semanas · nadar continuo y resistencia</div>
+  </div>
+  <div class="scr" id="swim-body"></div>
 </div>
 
 <!-- NAV -->
@@ -695,7 +715,7 @@ function go(page){
   document.getElementById('pg-'+page).classList.add('on');
   const nb=document.getElementById('nb-'+page);
   if(nb)nb.classList.add('on');
-  document.getElementById('bot-nav').style.display=['wk','hist'].includes(page)?'none':'flex';
+  document.getElementById('bot-nav').style.display=['wk','hist','swim'].includes(page)?'none':'flex';
   if(page==='home')renderHome();
   if(page==='food'){viewDate=td();renderFood();}
   if(page==='semana')renderWeek();
@@ -711,6 +731,13 @@ function goHist(){
   document.getElementById('pg-hist').classList.add('on');
   document.getElementById('bot-nav').style.display='none';
   renderHist();
+}
+function goSwim(){
+  prevPg='gym';
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-swim').classList.add('on');
+  document.getElementById('bot-nav').style.display='none';
+  renderSwim();
 }
 
 // ═══ HOME ═══
@@ -1202,6 +1229,42 @@ function finishWk(){
   save();toast('¡Sesión completada! 💪');setTimeout(()=>goBack(),700);
 }
 
+// ═══ NATACIÓN ═══
+const SWIM_PLAN=[
+{sem:'Semana 1-2',foco:'Nadar continuo',cont:'El objetivo es sostener distancias sin parar.',
+items:['Calentamiento: 50m suave','6 series de 50m (2 largos seguidos)','Descanso 30 seg entre series','Total: 300m','Vuelta a la calma: 50m muy despacio'],
+drills:['Respiración bilateral: inhalá cada 3 brazadas · 2×50m','Punta-talón: enfocate en estirar el brazo al entrar al agua · 1×50m']},
+{sem:'Semana 3-4',foco:'Resistencia',cont:'Ya nadás tramos largos con comodidad.',
+items:['Calentamiento: 100m suave','4 series de 75-100m sin parar','Descanso 30 seg entre series','Total: 400-500m','Vuelta a la calma: 100m + estiramiento completo'],
+drills:['Nado con puños cerrados (mejora el agarre del agua) · 1×50m','Respiración bilateral mantenida · 2×75m']}
+];
+function renderSwim(){
+  const body=document.getElementById('swim-body');body.innerHTML='';
+  const intro=document.createElement('div');intro.className='card';
+  intro.innerHTML='<div style="font-size:13px;color:var(--t2);line-height:1.6">🏊 Plan para volver al agua de a poco. Como hace mucho que no nadás y ya entrenás bastante, arrancá sin exigirte. <strong style="color:var(--t)">1 día por semana</strong> es suficiente al principio.<br><br>Técnica clave del crawl: exhalá dentro del agua y girá la cabeza al costado solo para inhalar (cada 2 brazadas al principio). Antiparras siempre.</div>';
+  body.appendChild(intro);
+  SWIM_PLAN.forEach((b,i)=>{
+    const done=ST.swim&&ST.swim[i];
+    const card=document.createElement('div');card.className='swimcard'+(done?' done':'');
+    const itemsH=b.items.map(it=>'<div class="mobitem">'+it+'</div>').join('');
+    const drillsH=b.drills?'<div class="swimdrill-lbl">🎯 Técnica de la sesión</div>'+b.drills.map(d=>'<div class="mobitem">'+d+'</div>').join(''):'';
+    card.innerHTML='<div class="swimhdr"><div><div class="swimsem">'+b.sem+'</div><div class="swimfoco">'+b.foco+'</div></div>'+
+      '<div class="swimck" id="swck-'+i+'">'+(done?'✓':'')+'</div></div>'+
+      '<div style="font-size:12px;color:var(--t2);margin:6px 0 8px;font-style:italic">'+b.cont+'</div>'+itemsH+drillsH;
+    body.appendChild(card);
+  });
+  SWIM_PLAN.forEach((b,i)=>{
+    const ck=document.getElementById('swck-'+i);
+    if(ck)ck.addEventListener('click',function(){
+      if(!ST.swim)ST.swim={};
+      ST.swim[i]=!ST.swim[i];save();renderSwim();
+    });
+  });
+  const note=document.createElement('div');note.style.cssText='font-size:11px;color:var(--t3);margin-top:8px;padding-bottom:20px';
+  note.textContent='Tocá el círculo de cada etapa para marcarla como completada. Pasá a la siguiente cuando te sientas cómoda, sin apuro.';
+  body.appendChild(note);
+}
+
 // ═══ HISTORY ═══
 function renderHist(){
   const body=document.getElementById('hist-body');body.innerHTML='';
@@ -1228,6 +1291,8 @@ document.getElementById('btn-prev-week').addEventListener('click', function(){ c
 document.getElementById('btn-next-week').addEventListener('click', function(){ chWeek(1); });
 document.getElementById('btn-reset-week').addEventListener('click', function(){ resetWeek(); });
 document.getElementById('btn-hist').addEventListener('click', function(){ goHist(); });
+document.getElementById('btn-swim').addEventListener('click', function(){ goSwim(); });
+document.getElementById('btn-back-swim').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-back-wk').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-back-hist').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-save-steps-h').addEventListener('click', function(){ saveSteps('h-sinp'); });
