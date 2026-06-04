@@ -368,10 +368,10 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
     <div class="card">
       <div class="clbl">Actividad extra quemada</div>
       <div class="chips" id="f-chips">
-        <div class="chip" data-cal="150" onclick="toggleChip(this)">🚴 Bicicleta</div>
-        <div class="chip" data-cal="300" onclick="toggleChip(this)">🏃 Corrí</div>
-        <div class="chip" data-cal="120" onclick="toggleChip(this)">🧘 Yoga/Pilates</div>
-        <div class="chip" data-cal="200" onclick="toggleChip(this)">🏊 Natación</div>
+        <div class="chip" data-cal="150">🚴 Bicicleta</div>
+        <div class="chip" data-cal="300">🏃 Corrí</div>
+        <div class="chip" data-cal="120">🧘 Yoga/Pilates</div>
+        <div class="chip" data-cal="200">🏊 Natación</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
         <span style="font-size:13px;color:var(--t2)">Otro:</span>
@@ -834,8 +834,27 @@ function renderChips(){
 }
 function toggleChip(el){
   const d=day(viewDate);if(!d.chips)d.chips=[];
-  const lbl=el.textContent.trim();const cal=parseInt(el.dataset.cal);
+  const lbl=el.textContent.trim();
   const idx=d.chips.indexOf(lbl);
+  // Natación: preguntar minutos y calcular (~7 kcal/min crawl para ~54kg)
+  if(lbl.includes('Natación')){
+    if(idx>-1){
+      d.chips.splice(idx,1);
+      d.chipCals=Math.max(0,(d.chipCals||0)-(d.swimCal||200));
+      d.swimCal=0;
+      el.classList.remove('on');save();renderFBal();return;
+    }
+    const min=parseInt(prompt('¿Cuántos minutos nadaste?','30'));
+    if(!min||min<=0)return;
+    const cal=Math.round(min*7);
+    d.swimCal=cal;
+    d.chips.push(lbl);
+    d.chipCals=(d.chipCals||0)+cal;
+    el.classList.add('on');save();renderFBal();
+    toast('🏊 '+min+' min · '+cal+' kcal');
+    return;
+  }
+  const cal=parseInt(el.dataset.cal);
   if(idx>-1){d.chips.splice(idx,1);d.chipCals=Math.max(0,(d.chipCals||0)-cal);}
   else{d.chips.push(lbl);d.chipCals=(d.chipCals||0)+cal;}
   el.classList.toggle('on',idx===-1);save();renderFBal();
@@ -1310,6 +1329,9 @@ document.getElementById('mod-escanear').addEventListener('click', function(){ se
 document.getElementById('btn-add-ing').addEventListener('click', function(){ addIng(); });
 document.getElementById('r-savebtn').addEventListener('click', function(){ saveRecipe(); });
 document.getElementById('f-addbtn').addEventListener('click', function(){ doAdd(); });
+document.querySelectorAll('#f-chips .chip').forEach(function(ch){
+  ch.addEventListener('click', function(){ toggleChip(this); });
+});
 
 // ═══ BACKUP: EXPORT / IMPORT ═══
 function exportData(){
