@@ -151,6 +151,11 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .sc2.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .cwarn{background:var(--ml);border:1px solid rgba(184,105,26,.3);border-radius:var(--rs);padding:9px 12px;font-size:12px;color:var(--am);margin-bottom:8px;display:flex;gap:6px}
 .techbtn{margin-top:10px;padding-top:10px;border-top:1px solid var(--b1);font-size:12px;font-weight:500;color:var(--ac);cursor:pointer}
+.mobcard{background:var(--gl);border:1px solid rgba(42,122,92,.2);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.strcard{background:#FDF0E0;border:1px solid rgba(184,105,26,.2);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.mobtit{font-size:13px;font-weight:600;color:var(--gd);margin-bottom:8px}
+.mobitem{font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.mobitem:last-child{border-bottom:none}
 .techbox{margin-top:8px;background:var(--s3);border-radius:var(--rs);padding:10px 12px}
 .techlink{font-size:12px;font-weight:500;color:var(--ac);text-decoration:none}
 .ccard{background:var(--gl);border:1.5px solid rgba(42,122,92,.25);border-radius:var(--r);padding:14px;margin-bottom:10px}
@@ -223,6 +228,10 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
         <div class="sp" data-steps="10000">10.000</div>
       </div>
       <div style="font-size:11px;color:var(--t3);margin-top:10px">💡 Salud → Actividad → Pasos en tu iPhone</div>
+    </div>
+    <div class="shdr">Cómo progresar</div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--t2);line-height:1.6">💪 <strong style="color:var(--t)">Sobrecarga progresiva:</strong> cuando completes las 3 series con buena técnica y las últimas reps se sientan fáciles 2 entrenamientos seguidos, subí el peso.<br><br>🔄 <strong style="color:var(--t)">Alterná rangos:</strong> en los ejercicios grandes (hip thrust, sentadilla, prensa, peso muerto) hacé una semana en 12-15 reps y otra en 8-10 con más peso.</div>
     </div>
     <div class="shdr">Mi semana</div>
     <div class="card" id="h-plan">
@@ -563,23 +572,29 @@ ex:[{n:'Hip thrust',m:'Barra o mancuerna',s:3,r:15,sg:'10–15 kg'},
 {n:'Peso muerto rumano',m:'Mancuernas',s:3,r:12,sg:'8 kg c/u'},
 {n:'Estocada caminando',m:'10 pasos c/lado',s:3,r:10,sg:'4–5 kg c/u'},
 {n:'Aducción en máquina',m:'',s:3,r:15,sg:'20–25 kg'},
-{n:'Gemelos de pie',m:'Escalón o máquina',s:3,r:20,sg:'Peso corporal'}],
+{n:'Gemelos de pie',m:'Escalón o máquina',s:3,r:20,sg:'Peso corporal'},
+{n:'Plancha',m:'Core · cuerpo en línea recta',s:3,r:30,sg:'30 seg'},
+{n:'Elevación de piernas',m:'Acostada · abdomen bajo',s:3,r:15,sg:'Peso corporal'}],
 cardio:{t:'Cinta — ritmo moderado',d:'5 min entrada · 10 min sostenido · 5 min bajada'}},
 {id:2,lab:'Día 2',foc:'Tren superior A',desc:'Pecho y espalda · 3×12',ck:false,
 ex:[{n:'Press pecho en máquina',m:'Asiento a altura de hombros',s:3,r:12,sg:'15–20 kg'},
-{n:'Jalón al pecho',m:'Polea alta · agarre ancho',s:3,r:12,sg:'20–30 kg'},
+{n:'Remo en máquina',m:'Tirá hacia el abdomen, codos atrás, junta omóplatos',s:3,r:12,sg:'15–20 kg'},
+{n:'Remo 1 brazo',m:'Apoyo en banco · c/lado',s:3,r:12,sg:'8–10 kg'},
 {n:'Press de hombros',m:'Mancuernas o máquina',s:3,r:12,sg:'4–6 kg c/u'},
 {n:'Vuelos laterales',m:'Mancuernas',s:3,r:15,sg:'3–4 kg c/u'},
 {n:'Curl de bíceps',m:'Mancuernas codos fijos',s:3,r:15,sg:'4–5 kg c/u'},
-{n:'Francés tríceps',m:'Mancuerna con ambas manos',s:3,r:15,sg:'4–6 kg'}],
+{n:'Francés tríceps',m:'Mancuerna con ambas manos',s:3,r:15,sg:'4–6 kg'},
+{n:'Crunch',m:'Abdomen alto · sin tirar del cuello',s:3,r:20,sg:'Peso corporal'},
+{n:'Plancha lateral',m:'Oblicuos · cada lado',s:3,r:30,sg:'30 seg c/lado'}],
 cardio:{t:'Bicicleta — intervalos suaves',d:'Resist. 5–6 · 1 min fuerte / 1 suave × 10'}},
 {id:3,lab:'Día 3',foc:'Piernas B',desc:'Cuádriceps y glúteos · 3×15',ck:false,
 ex:[{n:'Puente de glúteos',m:'Disco o mancuerna',s:3,r:20,sg:'5–10 kg'},
 {n:'Sentadilla búlgara',m:'Pie trasero en banco · 12 c/lado',s:3,r:12,sg:'4–6 kg c/u'},
 {n:'Prensa de piernas',m:'Pies a ancho de cadera',s:3,r:15,sg:'30–40 kg'},
 {n:'Sillón isquios',m:'Movimiento controlado',s:3,r:15,sg:'15–20 kg'},
-{n:'Sumo con mancuerna',m:'Stance ancho puntas afuera',s:3,r:15,sg:'10–12 kg'},
-{n:'Abducción en máquina',m:'',s:3,r:20,sg:'20–25 kg'}],
+{n:'Abducción en máquina',m:'',s:3,r:20,sg:'20–25 kg'},
+{n:'Elevación de piernas',m:'Abdomen bajo',s:3,r:15,sg:'Peso corporal'},
+{n:'Bicicleta',m:'Oblicuos · alternando',s:3,r:20,sg:'Peso corporal'}],
 cardio:{t:'Caminata inclinada',d:'Vel. 5 km/h · inclinación 10–12% · 20 min'}},
 {id:4,lab:'Día 4',foc:'CrossFit',desc:'Circuito metabólico · 4 vueltas',ck:false,
 ex:[{n:'Push press',m:'Técnica previa · 4×6 con poco peso',s:4,r:6,sg:'4–6 kg c/u'},
@@ -587,7 +602,8 @@ ex:[{n:'Push press',m:'Técnica previa · 4×6 con poco peso',s:4,r:6,sg:'4–6 
 {n:'Kettlebell swings',m:'Impulso de cadera',s:4,r:12,sg:'8–12 kg'},
 {n:'Step-ups a banco',m:'6 por pierna',s:4,r:12,sg:'Peso corporal o 3 kg'},
 {n:'Flexiones',m:'En rodillas si hace falta',s:4,r:8,sg:'Peso corporal'},
-{n:'Plancha',m:'Hold de core',s:4,r:30,sg:'30 seg'}],
+{n:'Plancha',m:'Hold de core',s:4,r:30,sg:'30 seg'},
+{n:'Elevación de piernas',m:'Abdomen bajo',s:3,r:15,sg:'Peso corporal'}],
 cardio:{t:'Vuelta a la calma',d:'Caminata suave 2 min + estiramiento 3 min'}}
 ];
 
@@ -600,6 +616,7 @@ const TECH={
 'Gemelos de pie':'Parada, elevá los talones lo más alto posible apoyando en la punta de los pies. Pausa arriba apretando el gemelo, bajá despacio. Podés sumar peso con mancuerna.',
 'Press pecho en máquina':'Asiento a la altura del pecho, agarrá las manijas y empujá hacia adelante extendiendo los brazos sin trabar los codos. Volvé controlando hasta sentir el pecho.',
 'Jalón al pecho':'Sentada, agarre ancho en la barra. Tirá la barra hacia el pecho llevando los codos abajo y atrás, juntando los omóplatos. Subí controlando sin soltar de golpe.',
+'Remo en máquina':'Sentada con el pecho apoyado o erguido, agarrá las manijas. Tirá hacia el abdomen llevando los codos bien atrás y juntando los omóplatos. Volvé controlando sin redondear la espalda.',
 'Press de hombros':'Mancuernas a la altura de los hombros, palmas al frente. Empujá hacia arriba hasta extender los brazos sobre la cabeza. Bajá controlando hasta los hombros. No arquees la espalda.',
 'Vuelos laterales':'Mancuernas a los costados, codos apenas flexionados. Subí los brazos hacia los lados hasta la altura de los hombros (como abrir alas). Bajá despacio. No uses impulso.',
 'Curl de bíceps':'Mancuernas a los costados, codos pegados al cuerpo y fijos. Flexioná subiendo el peso hacia los hombros sin mover los codos. Bajá controlando.',
@@ -620,7 +637,11 @@ const TECH={
 'Kettlebell swings':'Pesa rusa o mancuerna entre las piernas, espalda recta. El impulso viene de la cadera (no de los brazos): empujá la cadera adelante con fuerza para llevar el peso hasta la altura de los ojos. Dejá que baje y repetí el balanceo.',
 'Step-ups a banco':'Apoyá un pie completo sobre el banco. Empujá con esa pierna para subir, llevando el otro pie arriba. Bajá controlando con la misma pierna. El impulso viene de la pierna de arriba, no de abajo.',
 'Flexiones':'Manos al ancho de hombros, cuerpo en línea recta (o apoyando rodillas para versión fácil). Bajá flexionando los codos hasta casi tocar el piso con el pecho, subí extendiendo. Core firme.',
-'Plancha':'Apoyá antebrazos y puntas de pies, cuerpo en línea recta de cabeza a talones. Apretá abdomen y glúteos. No dejes caer la cadera ni la subas. Mantené la posición el tiempo indicado.'
+'Plancha':'Apoyá antebrazos y puntas de pies, cuerpo en línea recta de cabeza a talones. Apretá abdomen y glúteos. No dejes caer la cadera ni la subas. Mantené la posición el tiempo indicado.',
+'Elevación de piernas':'Acostada boca arriba, manos bajo la cola para proteger la lumbar. Subí las piernas estiradas (o apenas flexionadas) hasta la vertical y bajá controlando sin tocar el piso. Trabaja el abdomen bajo.',
+'Crunch':'Acostada boca arriba, rodillas flexionadas, manos en la nuca sin tirar del cuello. Subí los hombros despegando los omóplatos del piso contrayendo el abdomen. Bajá controlando. Movimiento corto.',
+'Plancha lateral':'De costado, apoyada en un antebrazo, cuerpo en línea recta. Levantá la cadera y mantené. Trabaja los oblicuos. Hacé el tiempo de cada lado.',
+'Bicicleta':'Acostada, manos en la nuca. Llevá el codo hacia la rodilla opuesta alternando lados, como pedaleando. Trabaja los oblicuos. Movimiento controlado, no por velocidad.'
 };
 
 const MEALS=['Desayuno','Almuerzo','Merienda','Cena','Snack'];
@@ -1063,6 +1084,16 @@ function buildWk(){
     w.innerHTML='⚠️ <span>En vuelos laterales: hombros abajo, sin elevar trapecios. Pará si sentís tensión en el cuello.</span>';
     body.appendChild(w);
   }
+  // Movilidad inicial
+  const mob=document.createElement('div');mob.className='mobcard';
+  mob.innerHTML='<div class="mobtit">🤸 Movilidad inicial · 5 min</div>'+
+    '<div class="mobitem">Círculos de brazos — 30 seg (adelante y atrás)</div>'+
+    '<div class="mobitem">Círculos de cadera — 30 seg cada lado</div>'+
+    '<div class="mobitem">Sentadillas al aire lentas — 10 reps</div>'+
+    '<div class="mobitem">Rotaciones de tronco — 30 seg</div>'+
+    '<div class="mobitem">Balanceo de piernas adelante/atrás — 10 c/u</div>'+
+    '<div class="mobitem">Movilidad de tobillos y muñecas — 30 seg</div>';
+  body.appendChild(mob);
   const sl=document.createElement('div');sl.className='slbl';sl.textContent='Fuerza · 40 min';body.appendChild(sl);
   curGymDay.ex.forEach((ex,i)=>{
     const card=document.createElement('div');card.className='exc';card.id='ec-'+i;
@@ -1105,6 +1136,16 @@ function buildWk(){
   body.appendChild(cc);
   document.getElementById('tbtn').addEventListener('click',toggleTimer);
   document.getElementById('trst').addEventListener('click',resetTimer);
+  // Estiramiento final
+  const sl3=document.createElement('div');sl3.className='slbl';sl3.textContent='Estiramiento · 5 min';body.appendChild(sl3);
+  const str=document.createElement('div');str.className='strcard';
+  str.innerHTML='<div class="mobitem">Cuádriceps — talón a la cola, 30 seg c/pierna</div>'+
+    '<div class="mobitem">Isquios — pierna estirada, llevá el pecho, 30 seg c/lado</div>'+
+    '<div class="mobitem">Glúteos — tobillo sobre rodilla opuesta, 30 seg c/lado</div>'+
+    '<div class="mobitem">Pecho y hombros — brazo contra la pared, 30 seg c/lado</div>'+
+    '<div class="mobitem">Espalda — abrazá las rodillas en el piso, 30 seg</div>'+
+    '<div class="mobitem">Cuello suave — inclinaciones lentas, 20 seg c/lado</div>';
+  body.appendChild(str);
   const nw=document.createElement('div');nw.style.marginTop='14px';
   nw.innerHTML='<div style="font-size:11px;color:var(--t3);margin-bottom:5px">Nota de la sesión</div>'+
     '<textarea id="nota" style="width:100%;padding:10px 12px;border:1px solid var(--b2);border-radius:var(--rs);font-family:\'DM Sans\',sans-serif;font-size:13px;background:var(--w);color:var(--t);resize:none" rows="2" placeholder="Cómo te sentiste..."></textarea>';
