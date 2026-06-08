@@ -534,9 +534,21 @@ function guardarMovimiento(){
   const g={id:Date.now().toString(),tipo:currentTipo,desc,monto,fecha,cat,cuenta,cuotas,nota};
   movimientos.push(g);save('movimientos_app',movimientos);
   msg.style.color='#0f6e56';
-  msg.textContent='✓ '+(currentTipo==='ingreso'?'Ingreso':'Gasto')+' guardado correctamente';
-  setTimeout(()=>msg.textContent='',2500);
+  msg.textContent='✓ '+(currentTipo==='ingreso'?'Ingreso':'Gasto')+' guardado — sincronizando...';
+  sincronizarSheets(g).then(ok=>{
+    msg.textContent=ok?'✓ Guardado y sincronizado con Google Sheets':'✓ Guardado localmente (sin conexión a Sheets)';
+    setTimeout(()=>msg.textContent='',3000);
+  });
   limpiarForm();
+}
+
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxGqkykyMB24WucDEaW-UUbFMrccT2XHnV_OlYg8mS1j5LTFrEIfTc6pKjFzsWbTH7H/exec';
+
+async function sincronizarSheets(g){
+  try{
+    await fetch(SHEETS_URL,{method:'POST',body:JSON.stringify(g)});
+    return true;
+  }catch{return false}
 }
 
 function limpiarForm(){
