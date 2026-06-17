@@ -165,6 +165,17 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .swimck{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--b2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#1A5A8F;font-weight:700;flex-shrink:0}
 .swimcard.done .swimck{background:#1A5A8F;color:#fff;border-color:#1A5A8F}
 .swimdrill-lbl{font-size:11px;font-weight:600;color:#1A5A8F;margin:10px 0 4px;padding-top:8px;border-top:1px solid var(--b1)}
+/* CYCLE */
+.cyc-phase{display:inline-block;font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:8px}
+.cyc-phase.m{background:#FDECEA;color:#B83030}
+.cyc-phase.f{background:#E2F4EC;color:#1D5940}
+.cyc-phase.o{background:#FDF0E0;color:#B8691A}
+.cyc-phase.l{background:#EDE8F8;color:#5A3F98}
+.cyc-day{font-size:13px;color:var(--t2);margin-bottom:10px}
+.cyc-sec{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 5px}
+.cyc-txt{font-size:13px;color:var(--t2);line-height:1.5}
+.cyc-setup{text-align:center;padding:8px 0}
+.cyc-setup-txt{font-size:13px;color:var(--t2);margin-bottom:10px}
 .techbox{margin-top:8px;background:var(--s3);border-radius:var(--rs);padding:10px 12px}
 .techlink{font-size:12px;font-weight:500;color:var(--ac);text-decoration:none}
 .ccard{background:var(--gl);border:1.5px solid rgba(42,122,92,.25);border-radius:var(--r);padding:14px;margin-bottom:10px}
@@ -238,6 +249,8 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
       </div>
       <div style="font-size:11px;color:var(--t3);margin-top:10px">💡 Salud → Actividad → Pasos en tu iPhone</div>
     </div>
+    <div class="shdr">Mi ciclo</div>
+    <div class="card" id="h-cycle"></div>
     <div class="shdr">Cómo progresar</div>
     <div class="card">
       <div style="font-size:13px;color:var(--t2);line-height:1.6">💪 <strong style="color:var(--t)">Sobrecarga progresiva:</strong> cuando completes las 3 series con buena técnica y las últimas reps se sientan fáciles 2 entrenamientos seguidos, subí el peso.<br><br>🔄 <strong style="color:var(--t)">Alterná rangos:</strong> en los ejercicios grandes (hip thrust, sentadilla, prensa, peso muerto) hacé una semana en 12-15 reps y otra en 8-10 con más peso.</div>
@@ -245,12 +258,12 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
     <div class="shdr">Mi semana</div>
     <div class="card" id="h-plan">
       <div class="plan-row"><span class="plan-day">Lun</span><span class="plan-act rest">Descanso</span></div>
-      <div class="plan-row"><span class="plan-day">Mar</span><span class="plan-act cf">CrossFit</span></div>
-      <div class="plan-row"><span class="plan-day">Mié</span><span class="plan-act run">Running con el team</span></div>
-      <div class="plan-row"><span class="plan-day">Jue</span><span class="plan-act gym">Gym · Piernas A</span></div>
-      <div class="plan-row"><span class="plan-day">Vie</span><span class="plan-act gym">Gym · Tren superior A</span><span class="plan-act swim">+ Natación opc.</span></div>
-      <div class="plan-row"><span class="plan-day">Sáb</span><span class="plan-act gym">Gym · Piernas B</span></div>
-      <div class="plan-row"><span class="plan-day">Dom</span><span class="plan-act walk">Caminata o rollers</span></div>
+      <div class="plan-row"><span class="plan-day">Mar</span><span class="plan-act cf">CrossFit B · Día 2</span></div>
+      <div class="plan-row"><span class="plan-day">Mié</span><span class="plan-act run">Running (próximo mes)</span></div>
+      <div class="plan-row"><span class="plan-day">Jue</span><span class="plan-act gym">Piernas A · Día 1</span></div>
+      <div class="plan-row"><span class="plan-day">Vie</span><span class="plan-act gym">Tren superior · Día 4</span><span class="plan-act swim">+ Natación opc.</span></div>
+      <div class="plan-row"><span class="plan-day">Sáb</span><span class="plan-act gym">Piernas B · Día 3</span></div>
+      <div class="plan-row"><span class="plan-day">Dom</span><span class="plan-act cf">CrossFit A · Día 5</span></div>
     </div>
     <div class="shdr">Gym esta semana</div>
     <div class="dgrid" id="h-dgrid"></div>
@@ -586,57 +599,85 @@ const DB=[
 ];
 
 const GYM_DAYS=[
-{id:1,lab:'Día 1',foc:'Piernas A',desc:'Glúteos e isquios · 3×15',ck:false,
-ex:[{n:'Hip thrust',m:'Barra o mancuerna',s:3,r:15,sg:'10–15 kg'},
-{n:'Sentadilla goblet',m:'Mancuerna al pecho',s:3,r:12,sg:'6–8 kg'},
-{n:'Peso muerto rumano',m:'Mancuernas',s:3,r:12,sg:'8 kg c/u'},
-{n:'Estocada caminando',m:'10 pasos c/lado',s:3,r:10,sg:'4–5 kg c/u'},
-{n:'Aducción en máquina',m:'',s:3,r:15,sg:'20–25 kg'},
-{n:'Gemelos de pie',m:'Escalón o máquina',s:3,r:20,sg:'Peso corporal'},
-{n:'Plancha',m:'Core · cuerpo en línea recta',s:3,r:30,sg:'30 seg'},
+{id:1,lab:'Día 1',foc:'Piernas A',desc:'Glúteos e isquios · 3×12-15',ck:false,
+ex:[{n:'Hip thrust con barra',m:'Barra · apretá glúteos arriba',s:3,r:12,sg:'20–30 kg'},
+{n:'Sentadilla goblet con pausa',m:'Bajá lento, pausa 2 seg abajo',s:3,r:10,sg:'8–10 kg'},
+{n:'Peso muerto rumano',m:'Mancuernas · bisagra de cadera',s:3,r:12,sg:'8–10 kg c/u'},
+{n:'Estocada reversa con kettlebell',m:'Paso atrás · kettlebell en copa',s:3,r:10,sg:'8–10 kg'},
+{n:'Aducción en máquina',m:'Almohadillas en cara interna del muslo · cerrá controlando',s:3,r:20,sg:'20–25 kg'},
+{n:'Gemelos en máquina',m:'Talones arriba · pausa · bajá despacio',s:3,r:20,sg:'Peso corporal o máquina'},
+{n:'Plancha con toque de hombro',m:'Tocar hombro opuesto alternando · core firme',s:3,r:20,sg:'Peso corporal'},
 {n:'Elevación de piernas',m:'Acostada · abdomen bajo',s:3,r:15,sg:'Peso corporal'}],
 cardio:{t:'Cinta — ritmo moderado',d:'5 min entrada · 10 min sostenido · 5 min bajada'}},
-{id:2,lab:'Día 2',foc:'Tren superior A',desc:'Pecho y espalda · 3×12',ck:false,
+{id:2,lab:'Día 2',foc:'CrossFit B',desc:'Circuito complejo · 4 vueltas',ck:false,
+ex:[{n:'Man makers',m:'Burpee + remo con mancuernas · el ejercicio más completo',s:4,r:6,sg:'4–6 kg c/u'},
+{n:'Sentadilla con salto',m:'Bajá controlado · subí explosiva',s:4,r:10,sg:'Peso corporal'},
+{n:'Kettlebell swings',m:'Impulso de cadera · no de brazos',s:4,r:15,sg:'8–12 kg'},
+{n:'Box step-ups con mancuernas',m:'6 por pierna · mancuernas a los costados',s:4,r:12,sg:'4–6 kg c/u'},
+{n:'Curl a press de hombros',m:'Curl + giro + press · un solo movimiento fluido',s:4,r:10,sg:'4 kg c/u'},
+{n:'Crunch con rotación',m:'Subí y girá hacia cada lado alternando',s:3,r:20,sg:'Peso corporal'},
+{n:'Plancha lateral con rotación',m:'Plancha lateral · llevá el brazo libre abajo y arriba',s:3,r:10,sg:'Peso corporal c/lado'}],
+cardio:{t:'Vuelta a la calma',d:'Caminata suave 2 min + estiramiento 3 min'}},
+{id:3,lab:'Día 3',foc:'Piernas B',desc:'Cuádriceps y glúteos · 3×12-15',ck:false,
+ex:[{n:'Sentadilla búlgara con kettlebell',m:'Kettlebell en copa · pie trasero en banco',s:3,r:10,sg:'8–12 kg'},
+{n:'Prensa de piernas',m:'Pies a ancho de cadera',s:3,r:15,sg:'30–40 kg'},
+{n:'Peso muerto a una pierna',m:'Una pierna en el aire · mancuerna en mano opuesta',s:3,r:8,sg:'6–8 kg'},
+{n:'Sillón isquios',m:'Movimiento controlado',s:3,r:15,sg:'15–20 kg'},
+{n:'Abducción en máquina',m:'Almohadillas en cara externa del muslo · abrí controlando',s:3,r:20,sg:'20–25 kg'},
+{n:'Estocada lateral',m:'Paso al costado · bajá sobre esa pierna · otra estirada',s:3,r:12,sg:'Peso corporal o 4 kg c/u'},
+{n:'Bicicleta',m:'Oblicuos · alternando',s:3,r:20,sg:'Peso corporal'},
+{n:'Crunch',m:'Abdomen alto · sin tirar del cuello',s:3,r:20,sg:'Peso corporal'}],
+cardio:{t:'Caminata inclinada',d:'Vel. 5 km/h · inclinación 10–12% · 20 min'}},
+{id:4,lab:'Día 4',foc:'Tren superior',desc:'Pecho · espalda · hombros · brazos · 3×12',ck:false,
 ex:[{n:'Press pecho en máquina',m:'Asiento a altura de hombros',s:3,r:12,sg:'15–20 kg'},
-{n:'Remo en máquina',m:'Tirá hacia el abdomen, codos atrás, junta omóplatos',s:3,r:12,sg:'15–20 kg'},
-{n:'Remo 1 brazo',m:'Apoyo en banco · c/lado',s:3,r:12,sg:'8–10 kg'},
-{n:'Press de hombros',m:'Mancuernas o máquina',s:3,r:12,sg:'4–6 kg c/u'},
-{n:'Vuelos laterales',m:'Mancuernas',s:3,r:15,sg:'3–4 kg c/u'},
-{n:'Curl de bíceps',m:'Mancuernas codos fijos',s:3,r:15,sg:'4–5 kg c/u'},
+{n:'Remo en máquina',m:'Tirá hacia el abdomen, codos atrás, juntá omóplatos',s:3,r:12,sg:'15–20 kg'},
+{n:'Dominadas asistidas',m:'Agarre prono · bajá hasta estirar · subí juntando omóplatos',s:3,r:10,sg:'Asistencia media'},
+{n:'Press de hombros',m:'Mancuernas · por encima de la cabeza',s:3,r:12,sg:'4–6 kg c/u'},
+{n:'Vuelos laterales',m:'Mancuernas · sin impulso',s:3,r:15,sg:'3–4 kg c/u'},
+{n:'Curl de bíceps',m:'Mancuernas · codos fijos',s:3,r:15,sg:'4–5 kg c/u'},
 {n:'Francés tríceps',m:'Mancuerna con ambas manos',s:3,r:15,sg:'4–6 kg'},
-{n:'Crunch',m:'Abdomen alto · sin tirar del cuello',s:3,r:20,sg:'Peso corporal'},
+{n:'Plancha',m:'Core · cuerpo en línea recta',s:3,r:30,sg:'30 seg'},
 {n:'Plancha lateral',m:'Oblicuos · cada lado',s:3,r:30,sg:'30 seg c/lado'}],
 cardio:{t:'Bicicleta — intervalos suaves',d:'Resist. 5–6 · 1 min fuerte / 1 suave × 10'}},
-{id:3,lab:'Día 3',foc:'Piernas B',desc:'Cuádriceps y glúteos · 3×15',ck:false,
-ex:[{n:'Puente de glúteos',m:'Disco o mancuerna',s:3,r:20,sg:'5–10 kg'},
-{n:'Sentadilla búlgara',m:'Pie trasero en banco · 12 c/lado',s:3,r:12,sg:'4–6 kg c/u'},
-{n:'Prensa de piernas',m:'Pies a ancho de cadera',s:3,r:15,sg:'30–40 kg'},
-{n:'Sillón isquios',m:'Movimiento controlado',s:3,r:15,sg:'15–20 kg'},
-{n:'Abducción en máquina',m:'',s:3,r:20,sg:'20–25 kg'},
-{n:'Elevación de piernas',m:'Abdomen bajo',s:3,r:15,sg:'Peso corporal'},
-{n:'Bicicleta',m:'Oblicuos · alternando',s:3,r:20,sg:'Peso corporal'}],
-cardio:{t:'Caminata inclinada',d:'Vel. 5 km/h · inclinación 10–12% · 20 min'}},
-{id:4,lab:'Día 4',foc:'CrossFit',desc:'Circuito metabólico · 4 vueltas',ck:false,
-ex:[{n:'Push press',m:'Técnica previa · 4×6 con poco peso',s:4,r:6,sg:'4–6 kg c/u'},
-{n:'Thrusters',m:'Sentadilla + empuje overhead',s:4,r:10,sg:'3–5 kg c/u'},
-{n:'Kettlebell swings',m:'Impulso de cadera',s:4,r:12,sg:'8–12 kg'},
-{n:'Step-ups a banco',m:'6 por pierna',s:4,r:12,sg:'Peso corporal o 3 kg'},
-{n:'Flexiones',m:'En rodillas si hace falta',s:4,r:8,sg:'Peso corporal'},
-{n:'Plancha',m:'Hold de core',s:4,r:30,sg:'30 seg'},
-{n:'Elevación de piernas',m:'Abdomen bajo',s:3,r:15,sg:'Peso corporal'}],
+{id:5,lab:'Día 5',foc:'CrossFit A',desc:'Circuito overhead · 4 vueltas',ck:false,
+ex:[{n:'Turkish get-up',m:'Técnica · lento y controlado · c/lado',s:3,r:3,sg:'4–6 kg'},
+{n:'Thrusters',m:'Sentadilla + empuje overhead en un movimiento',s:4,r:10,sg:'4–6 kg c/u'},
+{n:'Burpees',m:'Sin salto si hace falta · controlado',s:4,r:8,sg:'Peso corporal'},
+{n:'Push press',m:'Envión de piernas + press overhead',s:4,r:8,sg:'4–6 kg c/u'},
+{n:'Bear crawl',m:'En cuatro apoyos · avanzá 10m y volvé · core firme',s:4,r:1,sg:'Peso corporal'},
+{n:'Russian twist con kettlebell',m:'Sentada · girá el tronco tocando el piso c/lado',s:3,r:20,sg:'4–6 kg'},
+{n:'Flutter kicks',m:'Acostada · piernas levantadas · patadas alternadas',s:3,r:30,sg:'Peso corporal'}],
 cardio:{t:'Vuelta a la calma',d:'Caminata suave 2 min + estiramiento 3 min'}}
 ];
 
 const TECH={
-'Hip thrust':'Apoyá la espalda alta en un banco, barra o mancuerna sobre la cadera. Empujá con los talones subiendo la cadera hasta alinear tronco y muslos. Apretá los glúteos arriba y bajá controlando.',
+'Hip thrust con barra':'Apoyá la espalda alta en el banco, barra sobre la cadera con almohadilla. Pies bien apoyados, empujá subiendo la cadera hasta alinear tronco y muslos. Apretá glúteos arriba 1 seg y bajá controlando.',
+'Sentadilla goblet con pausa':'Sostené la kettlebell o mancuerna al pecho. Bajá hasta paralela al piso, hacé una pausa de 2 segundos abajo (sin rebotar), y subí explosiva. La pausa elimina el impulso y activa más el músculo.',
+'Estocada reversa con kettlebell':'Kettlebell sostenida con ambas manos frente al pecho (copa). Das un paso ATRÁS con una pierna, bajás la rodilla hacia el piso, volvés al centro. Más controlado que la estocada al frente.',
+'Saltos al cajón':'Parada frente al cajón, rodillas levemente flexionadas. Saltá con los dos pies y aterrizá suave sobre el cajón con rodillas semiflexionadas. Bajá siempre caminando (no saltando), para proteger las rodillas.',
+'Plancha con toque de hombro':'En posición de plancha alta (brazos extendidos). Tocá el hombro opuesto con una mano, volvé, alternás. El truco es no balancear las caderas — mantenelas estables. Más difícil de lo que parece.',
+'Man makers':'De pie con mancuernas. Bajás a plancha, hacés remo con cada brazo, flexión, salto de pies hacia adelante y press de hombros al subir. Todo seguido. Es el ejercicio más completo que existe.',
+'Sentadilla con salto':'Sentadilla normal pero al subir te despegás del piso explosiva. Aterrizás suave y volvés a bajar. Si las rodillas molestan, hacés squat normal sin salto.',
+'Renegade row':'En plancha alta con mancuernas. Hacés remo con un brazo mientras el otro apoya, alternando. Core absolutamente firme, no dejes rotar las caderas. Empezá con peso liviano.',
+'Curl a press de hombros':'Con mancuernas: primero hacés el curl subiendo hasta los hombros, girás las palmas hacia afuera y presionás hacia arriba. Dos movimientos en uno. Lento y controlado.',
+'Crunch con rotación':'Acostada, manos en nuca. Al subir, girás el codo derecho hacia la rodilla izquierda, volvés, y en la siguiente rep al revés. Trabaja el recto y los oblicuos juntos.',
+'Plancha lateral con rotación':'En plancha lateral, el brazo libre apunta al techo. Lo bajás pasando por debajo del cuerpo (rotación), volvés arriba. Trabaja oblicuos y movilidad de columna.',
+'Sentadilla búlgara con kettlebell':'Kettlebell sostenida en copa frente al pecho. Pie de atrás en el banco, bajás hasta que el muslo delantero quede paralelo al piso. Empujá con el talón delantero para subir.',
+'Peso muerto a una pierna':'De pie en una pierna, mancuerna en la mano opuesta. Inclinás el tronco hacia adelante mientras la pierna libre sube atrás (como bisagra). Espalda recta. Excelente para equilibrio y glúteos.',
+'Turkish get-up':'El ejercicio más completo con kettlebell. Acostada, kettlebell en una mano arriba. El objetivo es pararte sin bajar la pesa, siguiendo una secuencia de 7 pasos. Empezá con muy poco peso o sin peso hasta aprender.',
 'Sentadilla goblet':'Sostené la mancuerna contra el pecho con ambas manos. Pies al ancho de hombros, bajá llevando la cola atrás como si te sentaras, pecho erguido. Bajá hasta que los muslos queden paralelos al piso.',
 'Peso muerto rumano':'Mancuernas adelante de los muslos, piernas casi rectas (rodillas apenas flexionadas). Bajá empujando la cola hacia atrás, espalda recta, hasta sentir el estiramiento en los isquios. Volvé apretando glúteos.',
 'Estocada caminando':'Mancuernas a los costados. Das un paso largo al frente y bajás la rodilla de atrás hacia el piso. Empujá con el talón de adelante para avanzar al siguiente paso. Tronco erguido.',
+'Aducción en polea de pie':'De pie al costado de la polea baja, tobillo enganchado al cable. La pierna que tiene el cable la llevás cruzando hacia adentro frente a la otra pierna. Volvé controlando. Hacé todas las reps de un lado y cambiás. Mantené el tronco erguido y no te balancees.',
+'Abducción en polea de pie':'De pie al costado de la polea baja, tobillo enganchado al cable. La pierna que tiene el cable la llevás hacia afuera alejándola del cuerpo. Volvé controlando. Hacé todas las reps de un lado y cambiás. Apoyate en algo para no perder el equilibrio.',
+'Sentadilla sumo con kettlebell':'Stance bien abierto (más que la sentadilla normal), puntas de pie apuntando afuera a 45°. Sostené la kettlebell colgando entre las piernas. Bajá manteniendo el pecho erguido y las rodillas alineadas con las puntas. Al bajar activás el aductor (cara interna del muslo).',
+'Estocada lateral':'De pie, das un paso grande al costado con una pierna. Doblás esa rodilla bajando el cuerpo sobre ella mientras la otra pierna queda estirada. Volvés al centro empujando con el talón. Alterná lados. Trabaja abductor y aductor a la vez.',
 'Aducción en máquina':'Sentada en la máquina, piernas abiertas con las almohadillas en la cara interna de los muslos. Cerrá las piernas juntando las rodillas, controlando el regreso.',
 'Gemelos de pie':'Parada, elevá los talones lo más alto posible apoyando en la punta de los pies. Pausa arriba apretando el gemelo, bajá despacio. Podés sumar peso con mancuerna.',
 'Press pecho en máquina':'Asiento a la altura del pecho, agarrá las manijas y empujá hacia adelante extendiendo los brazos sin trabar los codos. Volvé controlando hasta sentir el pecho.',
 'Jalón al pecho':'Sentada, agarre ancho en la barra. Tirá la barra hacia el pecho llevando los codos abajo y atrás, juntando los omóplatos. Subí controlando sin soltar de golpe.',
 'Remo en máquina':'Sentada con el pecho apoyado o erguido, agarrá las manijas. Tirá hacia el abdomen llevando los codos bien atrás y juntando los omóplatos. Volvé controlando sin redondear la espalda.',
+'Dominadas asistidas':'En la máquina de asistencia, agarrás la barra con agarre prono (palmas al frente) al ancho de hombros. Bajá hasta que los brazos queden casi extendidos, luego empujá hacia abajo con los codos para subir. Juntá los omóplatos en la parte alta. La asistencia te ayuda con parte del peso — reducila de a poco con el tiempo.',
 'Press de hombros':'Mancuernas a la altura de los hombros, palmas al frente. Empujá hacia arriba hasta extender los brazos sobre la cabeza. Bajá controlando hasta los hombros. No arquees la espalda.',
 'Vuelos laterales':'Mancuernas a los costados, codos apenas flexionados. Subí los brazos hacia los lados hasta la altura de los hombros (como abrir alas). Bajá despacio. No uses impulso.',
 'Curl de bíceps':'Mancuernas a los costados, codos pegados al cuerpo y fijos. Flexioná subiendo el peso hacia los hombros sin mover los codos. Bajá controlando.',
@@ -652,6 +693,12 @@ const TECH={
 'Tríceps en polea':'De pie frente a la polea alta, agarrá la soga. Codos pegados al cuerpo y fijos. Extendé los brazos hacia abajo, apretá el tríceps, volvé controlando.',
 'Press pecho máquina':'Asiento a la altura del pecho, empujá las manijas hacia adelante extendiendo los brazos. Volvé controlando hasta sentir el estiramiento del pecho.',
 'Copa serratus':'Sostené una mancuerna con ambas manos a la altura del pecho. Movimiento de control de core, mantené el tronco firme.',
+'Puente de glúteos con pausa':'Acostada boca arriba, rodillas flexionadas, peso sobre la cadera. Subí la cadera apretando glúteos, mantené 2 segundos arriba y bajá controlando. La pausa aumenta la activación muscular.',
+'Box step-ups con mancuernas':'Mancuernas a los costados. Subís un pie al cajón, empujás con esa pierna para subir, subís el otro pie, bajás. 6 reps por pierna. Más controlado que los saltos pero igual de efectivo.',
+'Bear crawl':'En cuatro apoyos (manos y puntas de pies), rodillas a 5cm del piso. Avanzás moviendo mano y pie contrarios simultáneamente. Core absolutamente firme. Es más difícil de lo que parece.',
+'Russian twist con kettlebell':'Sentada con rodillas flexionadas, tronco levemente inclinado atrás. Sostené la kettlebell con ambas manos y girá el tronco tocando el piso a cada lado. Para más dificultad levantás los pies.',
+'Flutter kicks':'Acostada boca arriba, manos bajo la cola. Levantás las piernas a 30cm del piso y hacés patadas alternadas como si nadadras. Mantené el abdomen contraído todo el tiempo.',
+'Burpees':'De pie, bajá las manos al piso, saltá los pies atrás a posición de plancha, hacé una flexión (opcional), saltá los pies hacia adelante y subí. Podés hacerlo sin salto al final si te resulta muy intenso. El ritmo lo manejás vos.',
 'Push press':'Mancuernas a la altura de los hombros. Flexioná apenas las piernas y usá ese impulso para empujar el peso por encima de la cabeza. Bajá controlando a los hombros. El envión de piernas es lo que diferencia del press estricto.',
 'Thrusters':'Mancuernas en los hombros. Hacé una sentadilla completa y, al subir, aprovechá el impulso para empujar el peso arriba de la cabeza en un solo movimiento fluido. Bajá el peso a los hombros y repetí.',
 'Kettlebell swings':'Pesa rusa o mancuerna entre las piernas, espalda recta. El impulso viene de la cadera (no de los brazos): empujá la cadera adelante con fuerza para llevar el peso hasta la altura de los ojos. Dejá que baje y repetí el balanceo.',
@@ -754,7 +801,7 @@ function renderHome(){
   const sinp=document.getElementById('h-sinp');if(sinp&&steps)sinp.value=steps;
   const s=si(def(t),to.cal>0);
   const sb=document.getElementById('h-stat');sb.className='stat '+s.cls;sb.textContent=s.msg;
-  renderDGrid('h-dgrid');renderWPrev();
+  renderDGrid('h-dgrid');renderWPrev();renderCycle();
 }
 function quickStep(v){document.getElementById('h-sinp').value=v;document.getElementById('h-sbig').textContent=v.toLocaleString('es-AR');document.getElementById('h-ssub').textContent=Math.round(v*0.04)+' kcal quemadas caminando';}
 function saveSteps(id){
@@ -789,6 +836,61 @@ function renderWPrev(){
 function resetWeek(){
   if(!confirm('¿Resetear los días de gym de esta semana?'))return;
   const k=wk(td());if(ST.gym)delete ST.gym[k];save();renderHome();
+}
+
+// ═══ CICLO MENSTRUAL ═══
+const CYCLE_INFO={
+  m:{lab:'Menstrual',cls:'m',
+    food:'Es normal el antojo de dulce: la caída de estrógeno y progesterona afecta la serotonina. No lo prohibas — combinalo con algo nutritivo: fruta con yogur griego, dátiles, o un cuadradito de chocolate amargo 70%+. Sumá hierro (carne roja) para compensar lo que se pierde con el sangrado.',
+    gym:'Energía y fuerza más bajas, mayor sensibilidad. Bajá la intensidad sin culpa: pesos algo menores, priorizá caminata o natación sobre CrossFit intenso. Si hay dolor o cansancio fuerte, está bien entrenar liviano o descansar.'},
+  f:{lab:'Folicular',cls:'f',
+    food:'El estrógeno empieza a subir, apetito más estable. Buen momento para sostener el déficit con más facilidad y planificar la semana de comidas.',
+    gym:'Tu ventana de mejor rendimiento. Ideal para subir pesos, aplicar la sobrecarga progresiva, y meterle a los días más exigentes de CrossFit.'},
+  o:{lab:'Ovulación',cls:'o',
+    food:'Energía alta, buen momento para mantener el plan sin grandes antojos.',
+    gym:'Pico de fuerza y energía. El mejor momento de todo el ciclo para probar un peso máximo (PR) si querés.'},
+  l:{lab:'Lútea',cls:'l',
+    food:'Sube la progesterona. En los últimos días antes de menstruar puede volver el antojo y la retención de líquido (SPM). Mismo approach: anticipate con opciones ricas pero con valor nutritivo, sin prohibirte nada.',
+    gym:'La energía empieza a bajar hacia el final de la fase. Escuchá al cuerpo — si rendís bien seguí normal, si no, bajá intensidad.'}
+};
+function cyclePhase(dayNum,cycLen){
+  const lutealStart=cycLen-13;
+  if(dayNum<=6)return 'm';
+  if(dayNum<=13)return 'f';
+  if(dayNum===14||dayNum===15)return 'o';
+  return 'l';
+}
+function renderCycle(){
+  const el=document.getElementById('h-cycle');
+  if(!ST.cycle||!ST.cycle.start){
+    el.innerHTML='<div class="cyc-setup">'+
+      '<div class="cyc-setup-txt">Ingresá la fecha de inicio de tu último período para ver sugerencias de comida y gym según tu ciclo.</div>'+
+      '<input class="si" id="cyc-date" type="date" style="margin-bottom:8px;width:100%">'+
+      '<button class="sb" id="cyc-save" style="width:100%">Guardar</button></div>';
+    document.getElementById('cyc-save').addEventListener('click',function(){
+      const v=document.getElementById('cyc-date').value;
+      if(!v){toast('Elegí una fecha');return}
+      if(!ST.cycle)ST.cycle={};
+      ST.cycle.start=v;ST.cycle.len=28;save();renderCycle();
+    });
+    return;
+  }
+  const start=new Date(ST.cycle.start+'T12:00:00');
+  const now=new Date(td()+'T12:00:00');
+  const diffDays=Math.floor((now-start)/86400000);
+  const cycLen=ST.cycle.len||28;
+  const dayNum=(diffDays%cycLen)+1;
+  const ph=cyclePhase(dayNum,cycLen);
+  const info=CYCLE_INFO[ph];
+  el.innerHTML='<span class="cyc-phase '+info.cls+'">'+info.lab+'</span>'+
+    '<div class="cyc-day">Día '+dayNum+' de tu ciclo</div>'+
+    '<div class="cyc-sec">🍽 Comida</div><div class="cyc-txt">'+info.food+'</div>'+
+    '<div class="cyc-sec">💪 Gym</div><div class="cyc-txt">'+info.gym+'</div>'+
+    '<button class="mbtn" id="cyc-edit" style="margin-top:10px">✎ Actualizar fecha de inicio</button>';
+  document.getElementById('cyc-edit').addEventListener('click',function(){
+    if(!confirm('¿Actualizar la fecha de inicio del ciclo?'))return;
+    ST.cycle.start=null;save();renderCycle();
+  });
 }
 
 // ═══ FOOD ═══
