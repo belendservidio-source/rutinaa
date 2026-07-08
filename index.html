@@ -176,6 +176,11 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
 .cyc-txt{font-size:13px;color:var(--t2);line-height:1.5}
 .cyc-setup{text-align:center;padding:8px 0}
 .cyc-setup-txt{font-size:13px;color:var(--t2);margin-bottom:10px}
+.pre-opt{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--b1)}
+.pre-opt:last-of-type{border-bottom:none}
+.pre-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center}
+.pre-name{font-size:13px;font-weight:500;color:var(--t)}
+.pre-desc{font-size:11px;color:var(--t2);margin-top:2px}
 .techbox{margin-top:8px;background:var(--s3);border-radius:var(--rs);padding:10px 12px}
 .techlink{font-size:12px;font-weight:500;color:var(--ac);text-decoration:none}
 .ccard{background:var(--gl);border:1.5px solid rgba(42,122,92,.25);border-radius:var(--r);padding:14px;margin-bottom:10px}
@@ -249,21 +254,50 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
       </div>
       <div style="font-size:11px;color:var(--t3);margin-top:10px">💡 Salud → Actividad → Pasos en tu iPhone</div>
     </div>
+    <div class="shdr">Pre-entreno</div>
+    <div class="card">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.5">⚡ Opciones sin pico de glucosa · comé 20-30 min antes de entrenar</div>
+      <div class="pre-opt">
+        <div class="pre-icon">🥛</div>
+        <div><div class="pre-name">Yogur griego solo</div><div class="pre-desc">Proteína + grasa · sin fruta ni granola · la mejor opción</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🥜</div>
+        <div><div class="pre-name">Mantequilla de maní</div><div class="pre-desc">1 cucharada · grasa + proteína · sin azúcar · rápido y fácil</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🌰</div>
+        <div><div class="pre-name">Puñado de frutos secos</div><div class="pre-desc">Almendras, nueces o mix · grasa + proteína · cero pico de glucosa</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🥛🌰</div>
+        <div><div class="pre-name">Yogur griego + frutos secos</div><div class="pre-desc">La combinación ideal · proteína + grasa + saciedad</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🧀</div>
+        <div><div class="pre-name">Queso fresco solo</div><div class="pre-desc">Proteína + grasa · sin carbohidratos · portable</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);margin-top:10px">❌ Evitar: fruta sola, granola sola, jugo — generan pico de glucosa sin proteína</div>
+    </div>
     <div class="shdr">Mi ciclo</div>
     <div class="card" id="h-cycle"></div>
     <div class="shdr">Cómo progresar</div>
     <div class="card">
       <div style="font-size:13px;color:var(--t2);line-height:1.6">💪 <strong style="color:var(--t)">Sobrecarga progresiva:</strong> cuando completes las 3 series con buena técnica y las últimas reps se sientan fáciles 2 entrenamientos seguidos, subí el peso.<br><br>🔄 <strong style="color:var(--t)">Alterná rangos:</strong> en los ejercicios grandes (hip thrust, sentadilla, prensa, peso muerto) hacé una semana en 12-15 reps y otra en 8-10 con más peso.</div>
     </div>
-    <div class="shdr">Mi semana</div>
+    <div class="shdr">Mi semana (guía flexible)</div>
     <div class="card" id="h-plan">
-      <div class="plan-row"><span class="plan-day">Lun</span><span class="plan-act rest">Descanso</span></div>
-      <div class="plan-row"><span class="plan-day">Mar</span><span class="plan-act cf">CrossFit B · Día 2</span></div>
-      <div class="plan-row"><span class="plan-day">Mié</span><span class="plan-act run">Running (próximo mes)</span></div>
-      <div class="plan-row"><span class="plan-day">Jue</span><span class="plan-act gym">Piernas A · Día 1</span></div>
-      <div class="plan-row"><span class="plan-day">Vie</span><span class="plan-act gym">Tren superior · Día 4</span><span class="plan-act swim">+ Natación opc.</span></div>
-      <div class="plan-row"><span class="plan-day">Sáb</span><span class="plan-act gym">Piernas B · Día 3</span></div>
-      <div class="plan-row"><span class="plan-day">Dom</span><span class="plan-act cf">CrossFit A · Día 5</span></div>
+      <div style="font-size:12px;color:var(--t2);margin-bottom:10px">Organizá los días según cómo estés. Lo importante es respetar el orden y el descanso entre piernas.</div>
+      <div class="plan-row"><span class="plan-act gym" style="margin:0">Gym · Piernas A</span></div>
+      <div class="plan-row"><span class="plan-act cf" style="margin:0">CrossFit B</span></div>
+      <div class="plan-row"><span class="plan-act gym" style="margin:0">Gym · Piernas B</span></div>
+      <div class="plan-row"><span class="plan-act gym" style="margin:0">Gym · Empuje</span></div>
+      <div class="plan-row"><span class="plan-act gym" style="margin:0">Gym · Tracción</span></div>
+      <div class="plan-row"><span class="plan-act cf" style="margin:0">CrossFit A</span></div>
+      <div class="plan-row"><span class="plan-act run" style="margin:0">Running (próximo mes)</span></div>
+      <div class="plan-row"><span class="plan-act" style="background:#F0E6FF;color:#6B3FA0;margin:0">Yoga · Hatha Suave (viernes)</span></div>
+      <div class="plan-row"><span class="plan-act walk" style="margin:0">Caminata o rollers</span></div>
+      <div style="font-size:11px;color:var(--t3);margin-top:8px">💡 No juntes Piernas A y Piernas B días seguidos · al menos 1 día entre ellas</div>
     </div>
     <div class="shdr">Gym esta semana</div>
     <div class="dgrid" id="h-dgrid"></div>
@@ -613,9 +647,9 @@ cardio:{t:'Cinta — ritmo moderado',d:'5 min entrada · 10 min sostenido · 5 m
 ex:[{n:'Press pecho en máquina',m:'Asiento a altura de hombros',s:3,r:12,sg:'18 kg'},
 {n:'Press de hombros en máquina',m:'Asiento ajustado · empujá sin trabar codos',s:3,r:12,sg:'10–15 kg'},
 {n:'Tríceps en polea',m:'Soga · codos pegados',s:3,r:15,sg:'10–15 kg'},
-{n:'Apertura en máquina',m:'Pec deck · codos a la altura del pecho · juntá adelante',s:3,r:15,sg:'15–20 kg'},
+{n:'Butterfly en máquina',m:'Codos a la altura del pecho · juntá adelante controlando',s:3,r:15,sg:'15–20 kg'},
 {n:'Vuelos laterales',m:'Mancuernas · sin impulso',s:3,r:15,sg:'4 kg c/u'},
-{n:'Francés tríceps',m:'Mancuerna con ambas manos',s:3,r:15,sg:'5 kg'},
+{n:'Elevación frontal',m:'Mancuernas · subí hasta la altura del hombro · alternado',s:3,r:14,sg:'3–4 kg c/u'},
 {n:'Crunch con rotación',m:'Subí y girá hacia cada lado alternando',s:3,r:20,sg:'Peso corporal'},
 {n:'Plancha lateral con rotación',m:'Plancha lateral · llevá el brazo libre abajo y arriba',s:3,r:10,sg:'Peso corporal c/lado'}],
 cardio:{t:'Bicicleta — intervalos suaves',d:'Resist. 5–6 · 1 min fuerte / 1 suave × 10'}},
@@ -674,7 +708,7 @@ const TECH={
 'Estocada lateral':'De pie, das un paso grande al costado con una pierna. Doblás esa rodilla bajando el cuerpo sobre ella mientras la otra pierna queda estirada. Volvés al centro empujando con el talón. Alterná lados. Trabaja abductor y aductor a la vez.',
 'Aducción en máquina':'Sentada en la máquina, piernas abiertas con las almohadillas en la cara interna de los muslos. Cerrá las piernas juntando las rodillas, controlando el regreso.',
 'Gemelos de pie':'Parada, elevá los talones lo más alto posible apoyando en la punta de los pies. Pausa arriba apretando el gemelo, bajá despacio. Podés sumar peso con mancuerna.',
-'Apertura en máquina':'Sentada en el pec deck, codos apoyados a la altura del pecho. Juntá los brazos hacia adelante apretando el pecho, volvé controlando sin que las pesas choquen abajo.',
+'Butterfly en máquina':'Sentada en la máquina, codos apoyados en las almohadillas a la altura del pecho. Juntá los brazos hacia adelante apretando el pecho, volvé controlando sin que los brazos vayan muy atrás. Trabajá el pecho desde adentro.',
 'Press de hombros en máquina':'Sentada con la espalda apoyada, agarrá las manijas a la altura de los hombros. Empujá hacia arriba sin trabar los codos del todo. Bajá controlando.',
 'Remo en polea baja sentada':'Sentada frente a la polea baja, pies apoyados, rodillas levemente flexionadas. Tirá el agarre hacia el abdomen llevando los codos atrás, espalda recta. Volvé controlando sin redondear.',
 'Face pull en polea':'De pie frente a la polea alta con cuerda. Agarrá los dos extremos con las palmas mirándose entre sí. Tirá la cuerda hacia tu cara separando las manos hacia los costados, como si quisieras tocarte las orejas con los pulgares. Codos altos, apretá los omóplatos al final. No carga el cuello, es muy seguro.',
@@ -684,6 +718,7 @@ const TECH={
 'Remo en máquina':'Sentada con el pecho apoyado o erguido, agarrá las manijas. Tirá hacia el abdomen llevando los codos bien atrás y juntando los omóplatos. Volvé controlando sin redondear la espalda.',
 'Dominadas asistidas':'En la máquina de asistencia, agarrás la barra con agarre prono (palmas al frente) al ancho de hombros. Bajá hasta que los brazos queden casi extendidos, luego empujá hacia abajo con los codos para subir. Juntá los omóplatos en la parte alta. La asistencia te ayuda con parte del peso — reducila de a poco con el tiempo.',
 'Press de hombros':'Mancuernas a la altura de los hombros, palmas al frente. Empujá hacia arriba hasta extender los brazos sobre la cabeza. Bajá controlando hasta los hombros. No arquees la espalda.',
+'Elevación frontal':'Mancuernas a los costados, palmas mirando hacia el cuerpo. Subí un brazo hacia adelante hasta la altura del hombro, bajá controlando y subí el otro. Alternado. Sin impulso, movimiento lento y controlado. Trabaja el deltoides anterior.',
 'Vuelos laterales':'Mancuernas a los costados, codos apenas flexionados. Subí los brazos hacia los lados hasta la altura de los hombros (como abrir alas). Bajá despacio. No uses impulso.',
 'Curl de bíceps':'Mancuernas a los costados, codos pegados al cuerpo y fijos. Flexioná subiendo el peso hacia los hombros sin mover los codos. Bajá controlando.',
 'Francés tríceps':'Sostené una mancuerna con ambas manos detrás de la cabeza, codos apuntando arriba. Extendé los brazos subiendo el peso. Bajá flexionando solo los codos.',
