@@ -470,6 +470,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
   <div class="hdr"><h1>Gym</h1><div class="hdr-s">Rutina de 4 días</div></div>
   <div class="scr">
     <div class="dgrid" id="g-grid"></div>
+    <button class="gbtn" id="btn-mens">🩸 Rutina días de menstruación</button>
     <button class="gbtn" id="btn-swim">🏊 Plan de natación progresivo</button>
     <button class="gbtn" id="btn-hist">📋 Historial de sesiones</button>
   </div>
@@ -503,6 +504,16 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
     <div class="hdr-s">Plan de 4 semanas · nadar continuo y resistencia</div>
   </div>
   <div class="scr" id="swim-body"></div>
+</div>
+
+<!-- ═══ RUTINA MENSTRUAL ═══ -->
+<div class="pg" id="pg-mens">
+  <div class="hdr">
+    <button class="bb2" id="btn-back-mens" style="margin-bottom:5px">← Volver</button>
+    <h1>Rutina menstrual</h1>
+    <div class="hdr-s">Mixto suave · piernas + brazos</div>
+  </div>
+  <div class="scr" id="mens-body"></div>
 </div>
 
 <!-- NAV -->
@@ -659,7 +670,8 @@ ex:[{n:'Step-up con mancuernas',m:'Subí al banco con una pierna · empujá con 
 {n:'Elevación de cadera a una pierna',m:'Acostada · una pierna apoyada · otra estirada · subí la cadera',s:3,r:12,sg:'Peso corporal o disco'},
 {n:'Prensa de piernas',m:'Pies a ancho de cadera',s:3,r:15,sg:'30–40 kg'},
 {n:'Abducción en máquina',m:'Almohadillas en cara externa del muslo · abrí controlando',s:3,r:20,sg:'20–25 kg'},
-{n:'Estocada lateral',m:'Paso al costado · bajá sobre esa pierna · otra estirada',s:3,r:12,sg:'Peso corporal o 4 kg c/u'},
+{n:'Sillón de cuádriceps',m:'Extensión de pierna en máquina · controlá la bajada',s:3,r:15,sg:'15–20 kg'},
+{n:'Patada de glúteo en máquina',m:'Cuatro apoyos · empujá hacia atrás y arriba · apretá arriba',s:3,r:15,sg:'10–15 kg'},
 {n:'Bicicleta',m:'Oblicuos · alternando',s:3,r:20,sg:'Peso corporal'},
 {n:'Crunch',m:'Abdomen alto · sin tirar del cuello',s:3,r:20,sg:'Peso corporal'}],
 cardio:{t:'Caminata inclinada',d:'Vel. 5 km/h · inclinación 10–12% · 20 min'}},
@@ -667,9 +679,8 @@ cardio:{t:'Caminata inclinada',d:'Vel. 5 km/h · inclinación 10–12% · 20 min
 ex:[{n:'Remo en máquina',m:'Tirá hacia el abdomen, codos atrás, juntá omóplatos',s:3,r:12,sg:'18 kg'},
 {n:'Dominadas asistidas',m:'Agarre prono · bajá hasta estirar · subí juntando omóplatos',s:3,r:10,sg:'Asistencia media'},
 {n:'Face pull en polea',m:'Cuerda · tirá hacia la cara · codos altos',s:3,r:15,sg:'8–10 kg'},
-{n:'Encogimientos de hombros',m:'Mancuernas · subí los hombros hacia las orejas',s:3,r:15,sg:'8–10 kg c/u'},
 {n:'Curl de bíceps',m:'Mancuernas · codos fijos',s:3,r:15,sg:'4 kg c/u'},
-{n:'Curl de muñeca',m:'Antebrazos apoyados · solo movés la muñeca',s:3,r:15,sg:'3–4 kg c/u'},
+{n:'Pallof press en polea',m:'Lateral a la polea · empujá y traé · resistí la rotación',s:3,r:12,sg:'8–10 kg'},
 {n:'Plancha',m:'Core · cuerpo en línea recta',s:3,r:30,sg:'30 seg'},
 {n:'Plancha lateral',m:'Oblicuos · cada lado',s:3,r:30,sg:'30 seg c/lado'}],
 cardio:{t:'Bicicleta — intervalos suaves',d:'Resist. 5–6 · 1 min fuerte / 1 suave × 10'}},
@@ -705,14 +716,15 @@ const TECH={
 'Aducción en polea de pie':'De pie al costado de la polea baja, tobillo enganchado al cable. La pierna que tiene el cable la llevás cruzando hacia adentro frente a la otra pierna. Volvé controlando. Hacé todas las reps de un lado y cambiás. Mantené el tronco erguido y no te balancees.',
 'Abducción en polea de pie':'De pie al costado de la polea baja, tobillo enganchado al cable. La pierna que tiene el cable la llevás hacia afuera alejándola del cuerpo. Volvé controlando. Hacé todas las reps de un lado y cambiás. Apoyate en algo para no perder el equilibrio.',
 'Sentadilla sumo con kettlebell':'Stance bien abierto (más que la sentadilla normal), puntas de pie apuntando afuera a 45°. Sostené la kettlebell colgando entre las piernas. Bajá manteniendo el pecho erguido y las rodillas alineadas con las puntas. Al bajar activás el aductor (cara interna del muslo).',
-'Estocada lateral':'De pie, das un paso grande al costado con una pierna. Doblás esa rodilla bajando el cuerpo sobre ella mientras la otra pierna queda estirada. Volvés al centro empujando con el talón. Alterná lados. Trabaja abductor y aductor a la vez.',
+'Sillón de cuádriceps':'Sentada en la máquina de extensión, tobillos debajo de las almohadillas. Extendé las piernas hacia arriba hasta casi estirarlas completamente, apretá el cuádriceps arriba y bajá controlando despacio. No dejes caer el peso.',
+'Patada de glúteo en máquina':'En la máquina específica o en polea baja, en posición de cuatro apoyos. Con el tobillo en la almohadilla o cable, empujá la pierna hacia atrás y arriba apretando el glúteo en el punto más alto. Volvé controlando sin bajar de golpe. Hacé todas las reps de un lado y cambiás.',
 'Aducción en máquina':'Sentada en la máquina, piernas abiertas con las almohadillas en la cara interna de los muslos. Cerrá las piernas juntando las rodillas, controlando el regreso.',
 'Gemelos de pie':'Parada, elevá los talones lo más alto posible apoyando en la punta de los pies. Pausa arriba apretando el gemelo, bajá despacio. Podés sumar peso con mancuerna.',
 'Butterfly en máquina':'Sentada en la máquina, codos apoyados en las almohadillas a la altura del pecho. Juntá los brazos hacia adelante apretando el pecho, volvé controlando sin que los brazos vayan muy atrás. Trabajá el pecho desde adentro.',
 'Press de hombros en máquina':'Sentada con la espalda apoyada, agarrá las manijas a la altura de los hombros. Empujá hacia arriba sin trabar los codos del todo. Bajá controlando.',
 'Remo en polea baja sentada':'Sentada frente a la polea baja, pies apoyados, rodillas levemente flexionadas. Tirá el agarre hacia el abdomen llevando los codos atrás, espalda recta. Volvé controlando sin redondear.',
 'Face pull en polea':'De pie frente a la polea alta con cuerda. Agarrá los dos extremos con las palmas mirándose entre sí. Tirá la cuerda hacia tu cara separando las manos hacia los costados, como si quisieras tocarte las orejas con los pulgares. Codos altos, apretá los omóplatos al final. No carga el cuello, es muy seguro.',
-'Encogimientos de hombros':'De pie, mancuernas a los costados. Subí los hombros hacia las orejas (como diciendo "no sé") sin doblar los codos. Pausa arriba 1 segundo, bajá controlando. Trabaja el trapecio.',
+'Remo agarre neutro en polea':'Sentada frente a la polea baja, agarrá el maneral con agarre neutro (palmas enfrentadas). Tirá hacia el abdomen llevando los codos cerca del cuerpo, juntando los omóplatos al final. Volvé controlando. No encoge el cuello ni trabaja el trapecio superior.',
 'Curl de muñeca':'Sentada, antebrazos apoyados en los muslos o un banco, mancuernas en las manos con las palmas hacia arriba. Solo movés la muñeca, dejando caer el peso y subiéndolo de nuevo, sin mover el antebrazo. Trabaja el antebrazo, distinto del bíceps.',
 'Jalón al pecho':'Sentada, agarre ancho en la barra. Tirá la barra hacia el pecho llevando los codos abajo y atrás, juntando los omóplatos. Subí controlando sin soltar de golpe.',
 'Remo en máquina':'Sentada con el pecho apoyado o erguido, agarrá las manijas. Tirá hacia el abdomen llevando los codos bien atrás y juntando los omóplatos. Volvé controlando sin redondear la espalda.',
@@ -740,6 +752,7 @@ const TECH={
 'Step-up con mancuernas':'Mancuernas a los costados. Apoyá un pie completo en el banco, empujá con esa pierna para subir llevando el otro pie arriba. Bajá controlando con la misma pierna que subió. Hacé todas las reps de un lado y cambiás.',
 'Elevación de cadera a una pierna':'Acostada boca arriba, rodillas flexionadas. Estirá una pierna al frente (sin apoyarla) y dejá la otra apoyada en el piso. Subí la cadera empujando con la pierna apoyada, apretando el glúteo. Bajá controlando. Sin equilibrio porque estás acostada — solo trabaja la fuerza del glúteo.',
 'Bear crawl':'En cuatro apoyos (manos y puntas de pies), rodillas a 5cm del piso. Avanzás moviendo mano y pie contrarios simultáneamente. Core absolutamente firme. Es más difícil de lo que parece.',
+'Pallof press en polea':'De pie lateral a la polea, agarrá el maneral con ambas manos frente al pecho. Empujá hacia adelante extendiendo los brazos y volvé al pecho. El core trabaja resistiendo la rotación que genera la polea. Hacé todas las reps de un lado y girás para el otro lado.',
 'Russian twist con kettlebell':'Sentada con rodillas flexionadas, tronco levemente inclinado atrás. Sostené la kettlebell con ambas manos y girá el tronco tocando el piso a cada lado. Para más dificultad levantás los pies.',
 'Flutter kicks':'Acostada boca arriba, manos bajo la cola. Levantás las piernas a 30cm del piso y hacés patadas alternadas como si nadadras. Mantené el abdomen contraído todo el tiempo.',
 'Burpees':'De pie, bajá las manos al piso, saltá los pies atrás a posición de plancha, hacé una flexión (opcional), saltá los pies hacia adelante y subí. Podés hacerlo sin salto al final si te resulta muy intenso. El ritmo lo manejás vos.',
@@ -806,7 +819,7 @@ function go(page){
   document.getElementById('pg-'+page).classList.add('on');
   const nb=document.getElementById('nb-'+page);
   if(nb)nb.classList.add('on');
-  document.getElementById('bot-nav').style.display=['wk','hist','swim'].includes(page)?'none':'flex';
+  document.getElementById('bot-nav').style.display=['wk','hist','swim','mens'].includes(page)?'none':'flex';
   if(page==='home')renderHome();
   if(page==='food'){viewDate=td();renderFood();}
   if(page==='semana')renderWeek();
@@ -822,6 +835,13 @@ function goHist(){
   document.getElementById('pg-hist').classList.add('on');
   document.getElementById('bot-nav').style.display='none';
   renderHist();
+}
+function goMens(){
+  prevPg='gym';
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-mens').classList.add('on');
+  document.getElementById('bot-nav').style.display='none';
+  renderMens();
 }
 function goSwim(){
   prevPg='gym';
@@ -1394,6 +1414,49 @@ function finishWk(){
   save();toast('¡Sesión completada! 💪');setTimeout(()=>goBack(),700);
 }
 
+// ═══ RUTINA MENSTRUAL ═══
+const MENS_DAYS=[
+{id:'m1',lab:'Día M1',foc:'Mixto A · Glúteos + Tirón',desc:'Isquios · espalda · bíceps · suave',
+ex:[{n:'Hip thrust con mancuerna',m:'Mancuerna (no barra) · sin presión en la pelvis',s:3,r:15,sg:'Más liviano que habitual'},
+{n:'Sillón isquios',m:'Movimiento lento y controlado',s:3,r:15,sg:'Liviano'},
+{n:'Abducción en máquina',m:'Sin forzar el rango',s:3,r:20,sg:'Liviano'},
+{n:'Remo en máquina',m:'Tirá suave · sin tensionar el cuello',s:3,r:15,sg:'Liviano'},
+{n:'Face pull en polea',m:'Cuerda · codos altos · lento',s:3,r:15,sg:'Liviano'},
+{n:'Curl de bíceps',m:'Mancuernas · sin apuros',s:3,r:15,sg:'Liviano'},
+{n:'Plancha',m:'20 segundos si no podés más',s:2,r:20,sg:'Peso corporal'}],
+cardio:{t:'Caminata suave o bicicleta tranquila',d:'10 min sin inclinación ni intervalos'}},
+{id:'m2',lab:'Día M2',foc:'Mixto B · Cuádriceps + Empuje',desc:'Piernas · pecho · hombros · suave',
+ex:[{n:'Prensa de piernas',m:'Sin forzar · rangos cómodos',s:3,r:15,sg:'Más liviano que habitual'},
+{n:'Patada de glúteo en máquina',m:'Controlado · apretá arriba',s:3,r:15,sg:'Liviano'},
+{n:'Aducción en máquina',m:'Sin forzar el cierre',s:3,r:20,sg:'Liviano'},
+{n:'Press pecho en máquina',m:'Suave · sin trabar codos',s:3,r:15,sg:'Liviano'},
+{n:'Butterfly en máquina',m:'Rango reducido si hay tensión',s:3,r:15,sg:'Liviano'},
+{n:'Vuelos laterales',m:'Muy liviano · sin impulso',s:3,r:15,sg:'Muy liviano'},
+{n:'Elevación de piernas',m:'Lenta · menos reps si hay cólicos',s:2,r:10,sg:'Peso corporal'}],
+cardio:{t:'Caminata suave o bicicleta tranquila',d:'10 min sin inclinación ni intervalos'}}
+];
+function renderMens(){
+  const body=document.getElementById('mens-body');body.innerHTML='';
+  const intro=document.createElement('div');intro.className='card';
+  intro.innerHTML='<div style="font-size:13px;color:var(--t2);line-height:1.6">🩸 Mismos grupos musculares, menos intensidad. <strong style="color:var(--t)">Si un día no tenés energía, descansar también es parte del plan.</strong><br><br>⚠️ Hip thrust con mancuerna (no barra) para evitar presión sobre la pelvis.</div>';
+  body.appendChild(intro);
+  MENS_DAYS.forEach(day=>{
+    const sl=document.createElement('div');sl.className='slbl';sl.textContent=day.lab+' · '+day.foc;body.appendChild(sl);
+    day.ex.forEach(ex=>{
+      const card=document.createElement('div');card.className='exc';
+      card.innerHTML='<div class="exh"><div><div class="exn">'+ex.n+'</div><div class="exm">'+ex.m+'</div></div><span class="exb">'+ex.s+'×'+ex.r+'</span></div>'+
+        '<div style="font-size:11px;color:var(--am);margin-top:6px">💡 '+ex.sg+'</div>';
+      body.appendChild(card);
+    });
+    const cc=document.createElement('div');cc.className='ccard';
+    cc.innerHTML='<div class="ctit">'+day.cardio.t+'</div><div class="cdsc">'+day.cardio.d+'</div>';
+    body.appendChild(cc);
+  });
+  const tip=document.createElement('div');tip.style.cssText='font-size:12px;color:var(--t3);margin-top:10px;padding-bottom:20px;line-height:1.6';
+  tip.innerHTML='🥩 Priorizá la carne roja estos días para reponer hierro.<br>🍫 Si tenés antojos de dulce: fruta con yogur griego o un cuadradito de chocolate amargo 70%+.';
+  body.appendChild(tip);
+}
+
 // ═══ NATACIÓN ═══
 const SWIM_PLAN=[
 {sem:'Semana 1-2',foco:'Nadar continuo',cont:'El objetivo es sostener distancias sin parar.',
@@ -1455,7 +1518,8 @@ document.getElementById('btn-next-day').addEventListener('click', function(){ ch
 document.getElementById('btn-prev-week').addEventListener('click', function(){ chWeek(-1); });
 document.getElementById('btn-next-week').addEventListener('click', function(){ chWeek(1); });
 document.getElementById('btn-reset-week').addEventListener('click', function(){ resetWeek(); });
-document.getElementById('btn-hist').addEventListener('click', function(){ goHist(); });
+document.getElementById('btn-mens').addEventListener('click', function(){ goMens(); });
+document.getElementById('btn-back-mens').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-swim').addEventListener('click', function(){ goSwim(); });
 document.getElementById('btn-back-swim').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-back-wk').addEventListener('click', function(){ goBack(); });
