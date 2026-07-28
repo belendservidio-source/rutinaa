@@ -279,6 +279,31 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
       </div>
       <div style="font-size:11px;color:var(--t3);margin-top:10px">❌ Evitar: fruta sola, granola sola, jugo — generan pico de glucosa sin proteína</div>
     </div>
+    <div class="shdr">Drenaje linfático · piernas</div>
+    <div class="card">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:10px">Hacelos con constancia — los resultados se notan en semanas, no en días.</div>
+      <div class="pre-opt">
+        <div class="pre-icon">🪥</div>
+        <div><div class="pre-name">Cepillado en seco</div><div class="pre-desc">Antes de la ducha · movimientos cortos y firmes desde el pie hacia la ingle · 3-5 min · con cepillo de cerdas naturales</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🚿</div>
+        <div><div class="pre-name">Agua fría en piernas</div><div class="pre-desc">Al terminar la ducha · 30-60 seg de agua fría en las piernas · activa el retorno venoso</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🤲</div>
+        <div><div class="pre-name">Masaje ascendente</div><div class="pre-desc">En la ducha o con aceite · movimientos firmes desde el tobillo hacia la ingle · siempre hacia arriba</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🏊</div>
+        <div><div class="pre-name">Natación</div><div class="pre-desc">La presión del agua actúa como masaje · ideal para drenaje y circulación de piernas</div></div>
+      </div>
+      <div class="pre-opt">
+        <div class="pre-icon">🧘</div>
+        <div><div class="pre-name">Piernas en la pared</div><div class="pre-desc">Acostada · piernas apoyadas verticalmente en la pared · 10-15 min · drena la linfa pasivamente</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--t3);margin-top:10px">💡 El cepillado en seco + agua fría son los más fáciles de sostener a diario</div>
+    </div>
     <div class="shdr">Mi ciclo</div>
     <div class="card" id="h-cycle"></div>
     <div class="shdr">Cómo progresar</div>
@@ -470,6 +495,7 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
   <div class="hdr"><h1>Gym</h1><div class="hdr-s">Rutina de 4 días</div></div>
   <div class="scr">
     <div class="dgrid" id="g-grid"></div>
+    <button class="gbtn" id="btn-amrap">🔥 Finalizador AMRAP 10 min</button>
     <button class="gbtn" id="btn-mens">🩸 Rutina días de menstruación</button>
     <button class="gbtn" id="btn-swim">🏊 Plan de natación progresivo</button>
     <button class="gbtn" id="btn-hist">📋 Historial de sesiones</button>
@@ -514,6 +540,16 @@ button,input,textarea,select{font-family:'DM Sans',sans-serif;font-size:15px}
     <div class="hdr-s">Mixto suave · piernas + brazos</div>
   </div>
   <div class="scr" id="mens-body"></div>
+</div>
+
+<!-- ═══ AMRAP ═══ -->
+<div class="pg" id="pg-amrap">
+  <div class="hdr">
+    <button class="bb2" id="btn-back-amrap" style="margin-bottom:5px">← Volver</button>
+    <h1>Finalizador AMRAP</h1>
+    <div class="hdr-s">Cuerpo completo · 10 minutos</div>
+  </div>
+  <div class="scr" id="amrap-body"></div>
 </div>
 
 <!-- NAV -->
@@ -646,8 +682,8 @@ const DB=[
 const GYM_DAYS=[
 {id:1,lab:'Día 1',foc:'Piernas A',desc:'Glúteos e isquios · 3×12-15',ck:false,
 ex:[{n:'Hip thrust con barra',m:'Barra · apretá glúteos arriba',s:3,r:12,sg:'20–30 kg'},
-{n:'Sentadilla goblet con pausa',m:'Bajá lento, pausa 2 seg abajo',s:3,r:10,sg:'8–10 kg'},
-{n:'Peso muerto rumano',m:'Mancuernas · bisagra de cadera',s:3,r:12,sg:'8–10 kg c/u'},
+{n:'Sentadilla con barra',m:'Barra en la espalda alta · pies al ancho de hombros · bajá hasta paralela',s:3,r:12,sg:'20–30 kg'},
+{n:'Peso muerto rumano con barra',m:'Barra · bisagra de cadera · espalda recta',s:3,r:12,sg:'20–30 kg'},
 {n:'Estocada reversa con kettlebell',m:'Paso atrás · kettlebell en copa',s:3,r:10,sg:'8–10 kg'},
 {n:'Aducción en máquina',m:'Almohadillas en cara interna del muslo · cerrá controlando',s:3,r:20,sg:'20–25 kg'},
 {n:'Gemelos en máquina',m:'Talones arriba · pausa · bajá despacio',s:3,r:20,sg:'Peso corporal o máquina'},
@@ -667,7 +703,7 @@ cardio:{t:'Bicicleta — intervalos suaves',d:'Resist. 5–6 · 1 min fuerte / 1
 {id:3,lab:'Día 3',foc:'Piernas B',desc:'Cuádriceps y glúteos · 3×12-15',ck:false,
 ex:[{n:'Step-up con mancuernas',m:'Subí al banco con una pierna · empujá con el talón · bajá controlando',s:3,r:12,sg:'4–6 kg c/u'},
 {n:'Sillón isquios',m:'Movimiento controlado',s:3,r:15,sg:'15–20 kg'},
-{n:'Elevación de cadera a una pierna',m:'Acostada · una pierna apoyada · otra estirada · subí la cadera',s:3,r:12,sg:'Peso corporal o disco'},
+{n:'Sentadilla sumo con kettlebell',m:'Stance bien abierto · puntas afuera · kettlebell colgando',s:3,r:15,sg:'10–14 kg'},
 {n:'Prensa de piernas',m:'Pies a ancho de cadera',s:3,r:15,sg:'30–40 kg'},
 {n:'Abducción en máquina',m:'Almohadillas en cara externa del muslo · abrí controlando',s:3,r:20,sg:'20–25 kg'},
 {n:'Sillón de cuádriceps',m:'Extensión de pierna en máquina · controlá la bajada',s:3,r:15,sg:'15–20 kg'},
@@ -697,7 +733,8 @@ cardio:{t:'Vuelta a la calma',d:'Caminata suave 2 min + estiramiento 3 min'}}
 
 const TECH={
 'Hip thrust con barra':'Apoyá la espalda alta en el banco, barra sobre la cadera con almohadilla. Pies bien apoyados, empujá subiendo la cadera hasta alinear tronco y muslos. Apretá glúteos arriba 1 seg y bajá controlando.',
-'Sentadilla goblet con pausa':'Sostené la kettlebell o mancuerna al pecho. Bajá hasta paralela al piso, hacé una pausa de 2 segundos abajo (sin rebotar), y subí explosiva. La pausa elimina el impulso y activa más el músculo.',
+'Sentadilla con barra':'Barra apoyada en la espalda alta (no en el cuello). Pies al ancho de hombros, puntas levemente hacia afuera. Bajá manteniendo el pecho erguido y las rodillas alineadas con las puntas hasta que los muslos queden paralelos al piso. Empujá con los talones para subir. Core firme durante todo el movimiento.',
+'Peso muerto rumano con barra':'Parada con la barra frente a los muslos, agarre al ancho de hombros. Empujá la cola hacia atrás bajando la barra por las piernas, espalda completamente recta. Sentís el estiramiento en los isquios. Volvés empujando las caderas hacia adelante apretando los glúteos. No doblés las rodillas como en el peso muerto convencional.',
 'Estocada reversa con kettlebell':'Kettlebell sostenida con ambas manos frente al pecho (copa). Das un paso ATRÁS con una pierna, bajás la rodilla hacia el piso, volvés al centro. Más controlado que la estocada al frente.',
 'Saltos al cajón':'Parada frente al cajón, rodillas levemente flexionadas. Saltá con los dos pies y aterrizá suave sobre el cajón con rodillas semiflexionadas. Bajá siempre caminando (no saltando), para proteger las rodillas.',
 'Plancha con toque de hombro':'En posición de plancha alta (brazos extendidos). Tocá el hombro opuesto con una mano, volvé, alternás. El truco es no balancear las caderas — mantenelas estables. Más difícil de lo que parece.',
@@ -819,7 +856,7 @@ function go(page){
   document.getElementById('pg-'+page).classList.add('on');
   const nb=document.getElementById('nb-'+page);
   if(nb)nb.classList.add('on');
-  document.getElementById('bot-nav').style.display=['wk','hist','swim','mens'].includes(page)?'none':'flex';
+  document.getElementById('bot-nav').style.display=['wk','hist','swim','mens','amrap'].includes(page)?'none':'flex';
   if(page==='home')renderHome();
   if(page==='food'){viewDate=td();renderFood();}
   if(page==='semana')renderWeek();
@@ -835,6 +872,74 @@ function goHist(){
   document.getElementById('pg-hist').classList.add('on');
   document.getElementById('bot-nav').style.display='none';
   renderHist();
+}
+function goAmrap(){
+  prevPg='gym';
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('pg-amrap').classList.add('on');
+  document.getElementById('bot-nav').style.display='none';
+  renderAmrap();
+}
+const AMRAP_EX=[
+  {n:'Burpees',r:'10 reps',tip:'Controlado pero sin parar'},
+  {n:'Remo en máquina ergómetro',r:'20 paladas',tip:'Tirá fuerte con las piernas primero · amortiguador 4-5'},
+  {n:'Tirar la pelota',r:'15 reps',tip:'Slam (al piso) o wall ball (a la pared) · explosivo'},
+  {n:'Thrusters',r:'10 reps',tip:'Sentadilla + empuje overhead en un movimiento'},
+  {n:'Sentadilla con salto',r:'12 reps',tip:'Aterrizá suave · bajá controlando'},
+  {n:'Russian twist con kettlebell',r:'20 reps',tip:'10 c/lado · core rotacional para cerrar'}
+];
+let amrapTimer=600,amrapOn=false,amrapIv=null,amrapRounds=0;
+function renderAmrap(){
+  const body=document.getElementById('amrap-body');body.innerHTML='';
+  const intro=document.createElement('div');intro.className='card';
+  intro.innerHTML='<div style="font-size:13px;color:var(--t2);line-height:1.6">🔥 Completá la mayor cantidad de vueltas en <strong style="color:var(--t)">10 minutos</strong> sin parar. Anotá cuántas hacés — la próxima vez intentás superarlas.<br><br>Meta primera vez: <strong>4-5 vueltas</strong>.</div>';
+  body.appendChild(intro);
+  const sl=document.createElement('div');sl.className='slbl';sl.textContent='Ejercicios · 1 vuelta';body.appendChild(sl);
+  AMRAP_EX.forEach((ex,i)=>{
+    const card=document.createElement('div');card.className='exc';
+    card.innerHTML='<div class="exh"><div><div class="exn">'+(i+1)+'. '+ex.n+'</div><div class="exm">'+ex.tip+'</div></div><span class="exb">'+ex.r+'</span></div>';
+    body.appendChild(card);
+  });
+  const sl2=document.createElement('div');sl2.className='slbl';sl2.textContent='Temporizador';body.appendChild(sl2);
+  const tc=document.createElement('div');tc.className='ccard';
+  tc.innerHTML='<div class="ctit">AMRAP · 10 minutos</div>'+
+    '<div class="trow"><div class="tnum" id="amrap-tn">10:00</div>'+
+    '<button class="tbtn" id="amrap-tbtn">Iniciar</button>'+
+    '<button class="trst" id="amrap-trst">↺</button></div>';
+  body.appendChild(tc);
+  const rc=document.createElement('div');rc.style.cssText='margin-top:12px';
+  rc.innerHTML='<div style="font-size:11px;color:var(--t3);margin-bottom:6px">Vueltas completadas</div>'+
+    '<div style="display:flex;align-items:center;gap:12px">'+
+    '<button id="amrap-minus" style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--b2);background:var(--w);font-size:20px;cursor:pointer">−</button>'+
+    '<div id="amrap-rounds" style="font-size:32px;font-weight:600;font-family:\'DM Mono\',monospace;color:var(--ac)">0</div>'+
+    '<button id="amrap-plus" style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--b2);background:var(--w);font-size:20px;cursor:pointer">+</button>'+
+    '</div>';
+  body.appendChild(rc);
+  amrapTimer=600;amrapOn=false;amrapRounds=0;
+  if(amrapIv)clearInterval(amrapIv);
+  document.getElementById('amrap-tbtn').addEventListener('click',toggleAmrap);
+  document.getElementById('amrap-trst').addEventListener('click',resetAmrap);
+  document.getElementById('amrap-plus').addEventListener('click',function(){amrapRounds++;document.getElementById('amrap-rounds').textContent=amrapRounds;});
+  document.getElementById('amrap-minus').addEventListener('click',function(){if(amrapRounds>0)amrapRounds--;document.getElementById('amrap-rounds').textContent=amrapRounds;});
+}
+function toggleAmrap(){
+  const btn=document.getElementById('amrap-tbtn');
+  if(amrapOn){clearInterval(amrapIv);amrapOn=false;if(btn)btn.textContent='Continuar';}
+  else{
+    amrapOn=true;if(btn)btn.textContent='Pausar';
+    amrapIv=setInterval(()=>{
+      if(amrapTimer<=0){clearInterval(amrapIv);amrapOn=false;const b=document.getElementById('amrap-tbtn');if(b)b.textContent='¡Listo!';toast('¡AMRAP terminado! 🔥 Vueltas: '+amrapRounds);return;}
+      amrapTimer--;
+      const el=document.getElementById('amrap-tn');
+      if(el)el.textContent=String(Math.floor(amrapTimer/60)).padStart(2,'0')+':'+String(amrapTimer%60).padStart(2,'0');
+    },1000);
+  }
+}
+function resetAmrap(){
+  clearInterval(amrapIv);amrapOn=false;amrapTimer=600;amrapRounds=0;
+  const el=document.getElementById('amrap-tn');if(el)el.textContent='10:00';
+  const btn=document.getElementById('amrap-tbtn');if(btn)btn.textContent='Iniciar';
+  const r=document.getElementById('amrap-rounds');if(r)r.textContent='0';
 }
 function goMens(){
   prevPg='gym';
@@ -1518,6 +1623,8 @@ document.getElementById('btn-next-day').addEventListener('click', function(){ ch
 document.getElementById('btn-prev-week').addEventListener('click', function(){ chWeek(-1); });
 document.getElementById('btn-next-week').addEventListener('click', function(){ chWeek(1); });
 document.getElementById('btn-reset-week').addEventListener('click', function(){ resetWeek(); });
+document.getElementById('btn-amrap').addEventListener('click', function(){ goAmrap(); });
+document.getElementById('btn-back-amrap').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-mens').addEventListener('click', function(){ goMens(); });
 document.getElementById('btn-back-mens').addEventListener('click', function(){ goBack(); });
 document.getElementById('btn-swim').addEventListener('click', function(){ goSwim(); });
